@@ -12,26 +12,15 @@ alwaysApply: true
 
 ## Design System & Styling Rules
 
-* **Tailwind Configuration:** Ensure all custom colors and fonts below are properly extended in `tailwind.config.mjs` under the `theme.extend` object.
-* **Strict Color Usage:** Apply theme colors using your custom Tailwind classes. Do **not** invent arbitrary hex codes or use default Tailwind colors.
-  * **Accent Colors:** 
-    * `#385da2` Blue
-    * `#cd1e2b` Red
-    * `#2d7d3f` Green
-  * **Background Colors:**
-    * `#fff` White
-    * `#f4f5f6` Light Gray
-    * `#cccabf` Mid Gray 1
-    * `#474641` Mid Gray 2
-    * `#292825` Dark Gray
-    * `#33333d` Mid Dark
-* **Typography:** Reference the custom fonts located in the `/public/fonts/` (or `/src/fonts/`) folder. Define these in the Tailwind config as primary font families (e.g., `font-sans`, `font-heading`).
+* **Tailwind Configuration:** Define custom colors and fonts in `src/styles/global.css` via `@theme` (Tailwind v4). Do not add a `tailwind.config.mjs`.
+* **Strict Color Usage:** Use only the theme colors defined in `src/styles/global.css`. Do **not** invent arbitrary hex codes or use default Tailwind colors.
+* **Typography:** Use only **Inter** (`font-sans`, default body text) and **Instrument Serif** (`font-heading`). Fonts are loaded via Google Fonts in `src/layouts/Layout.astro`; families are defined in `src/styles/global.css` via `@theme`. Do not use other font families.
 * **Units:** Do not use `px` for font sizes — use `rem` instead. When the user specifies a value in `px`, always convert it to `rem` first (16px = 1rem) before applying it in code. **Exception:** border radius values may use `px`.
 * **Container:** The max width of the content should be 1440px.
 
 ## Assets
 
-* All image assets are hosted at https://assets.paprika-advertising.com. Import `asset()` from `src/lib/assets.ts` to build image URLs. Do not hardcode the CDN base in components.
+* All image assets are hosted at https://pub-91ada33d739146bdafc3a2ad87c11ea2.r2.dev. Import `asset()` from `src/lib/assets.ts` to build image URLs. Do not hardcode the CDN base in components.
 
 ## Responsive & Mobile-First Design
 
@@ -43,21 +32,10 @@ alwaysApply: true
 * **File Structure:** Place all reusable `.astro` components in `src/components/`, page layouts in `src/layouts/`, and pages in `src/pages/`.
 * **Islands Architecture:** Keep server-first rendering by default. Only use interactive client directives (`client:load`, `client:idle`, `client:visible`) when strictly necessary for JavaScript interactivity.
 
-## Sanity CMS Editability
-
-* **Every page section must be Sanity-editable.** Not only dynamic/list content — also section copy (headlines, body text, CTAs, labels) and images (including alt text).
-* **Section reordering:** Page sections must be modeled so editors can reorder them in Sanity (e.g. an ordered array of section blocks).
-* **Do not expose chrome that should stay code-owned.** Skip Sanity fields where editing does not make sense — e.g. main navigation, site-wide layout chrome, and similar structural UI. Prefer hardcoding those in the codebase.
-
 ## JavaScript Organization & Formatting
 
 * **Modular Files:** Do **not** write monolithic `<script>` tags or massive single JS/TS files. Split logic into small, modular files organized logically in `src/scripts/` or alongside the component.
 * **Header Comment Required:** Every JS/TS file **must** start with a brief 1–2 line comment explaining its core purpose. Don't add comments to other file types.
-
-## Live Site Reference
-
-* **Production website:** https://www.paprika-advertising.com/
-* Agents may fetch this URL (and its pages) as a visual/content reference for layout, copy, structure, and design decisions when implementing or updating the site.
 
 ## Documentation Context
 

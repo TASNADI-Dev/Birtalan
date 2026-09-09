@@ -1,1 +1,43 @@
 @import "tailwindcss";
+
+@theme {
+  --color-mandalay-50: #f9f8ed;
+  --color-mandalay-100: #f1edd0;
+  --color-mandalay-200: #e4daa4;
+  --color-mandalay-300: #d4c070;
+  --color-mandalay-400: #c6a849;
+  --color-mandalay-500: #b7943b;
+  --color-mandalay-600: #a87e34;
+  --color-mandalay-700: #7e592a;
+  --color-mandalay-800: #6a4829;
+  --color-mandalay-900: #5c3e27;
+  --color-mandalay-950: #342114;
+  --color-mandalay: var(--color-mandalay-500);
+
+  --color-mako-50: #f7f8f8;
+  --color-mako-100: #edeef1;
+  --color-mako-200: #d8dbdf;
+  --color-mako-300: #b5bbc4;
+  --color-mako-400: #8d96a3;
+  --color-mako-500: #6f7988;
+  --color-mako-600: #596170;
+  --color-mako-700: #444a55;
+  --color-mako-800: #3f444d;
+  --color-mako-900: #373a43;
+  --color-mako-950: #25272c;
+  --color-mako: var(--color-mako-500);
+
+  --color-foreground: var(--color-mandalay-950);
+  --color-highlight: var(--color-mandalay-600);
+
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Instrument Serif", serif;
+  --default-font-family: var(--font-sans);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-foreground);
+  }
+}

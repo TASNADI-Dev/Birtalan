@@ -7,8 +7,8 @@ interface Props {
 	imageAlt: string;
 	heading: string;
 	description: string;
-	buttonHref: string;
-	buttonLabel: string;
+	buttonHref?: string;
+	buttonLabel?: string;
 }
 
 const {
@@ -61,11 +61,15 @@ const isReversed = variant === "text-image";
 					{description}
 				</p>
 			</div>
-			<div>
-				<Button variant="text-only" href={buttonHref} arrow>
-					{buttonLabel}
-				</Button>
-			</div>
+			{
+				buttonHref && buttonLabel && (
+					<div>
+						<Button variant="text-only" href={buttonHref} arrow>
+							{buttonLabel}
+						</Button>
+					</div>
+				)
+			}
 		</div>
 	</div>
 </section>

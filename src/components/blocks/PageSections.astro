@@ -1,0 +1,24 @@
+---
+import HeroSection from './HeroSection.astro';
+import SplitSectionBlock from './SplitSectionBlock.astro';
+import type { PageSection } from '../../lib/sanity/queries';
+
+interface Props {
+  sections: PageSection[];
+}
+
+const { sections } = Astro.props;
+---
+
+{
+  sections.map((section) => {
+    switch (section._type) {
+      case 'heroSection':
+        return <HeroSection section={section} />;
+      case 'splitSection':
+        return <SplitSectionBlock section={section} />;
+      default:
+        return null;
+    }
+  })
+}

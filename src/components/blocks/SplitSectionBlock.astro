@@ -1,0 +1,25 @@
+---
+import SplitSection from '../SplitSection.astro';
+import { buildImageUrl } from '../../lib/sanity/image';
+import type { SplitSection as SplitSectionData } from '../../lib/sanity/queries';
+
+interface Props {
+  section: SplitSectionData;
+}
+
+const { section } = Astro.props;
+
+const imageSrc = section.imageUrl
+  ? buildImageUrl(section.imageUrl, { width: 800, height: 800 })
+  : section.fallbackImageUrl ?? '';
+---
+
+<SplitSection
+  variant={section.variant}
+  imageSrc={imageSrc}
+  imageAlt={section.alt}
+  heading={section.heading}
+  description={section.paragraph}
+  buttonHref={section.buttonHref}
+  buttonLabel="Részletek"
+/>

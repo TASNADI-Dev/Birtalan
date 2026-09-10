@@ -21,9 +21,17 @@ const client = createClient({
   useCdn: false,
 });
 
+const placeholderImage =
+  'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=800&fit=crop';
+
+const imageAsset = await client.assets.upload('image', placeholderImage, {
+  filename: 'split-section-placeholder.jpg',
+});
+
 await client.createOrReplace({
   _id: 'homePage',
-  _type: 'page',
+  _type: 'homePage',
+  title: 'Főoldal',
   sections: [
     {
       _type: 'heroSection',
@@ -54,6 +62,74 @@ await client.createOrReplace({
       description:
         'A BI-EM Beauty modern, nyugodt és igényes környezetben kínál arckezeléseket, szépészeti szolgáltatásokat és professzionális megoldásokat azoknak, akik valódi feltöltődésre vágynak.',
       buttonLabel: 'Időpontfoglalás',
+    },
+    {
+      _type: 'splitSection',
+      _key: 'home-split-1',
+      variant: 'image-text',
+      image: {
+        _type: 'image',
+        asset: { _type: 'reference', _ref: imageAsset._id },
+      },
+      alt: 'Arckezelés a BI-EM Beauty szalonban',
+      heading: 'Kozmetikai szolgáltatások',
+      paragraph:
+        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+      buttonLink: {
+        _type: 'reference',
+        _ref: 'templatePage-kozmetika',
+      },
+    },
+    {
+      _type: 'splitSection',
+      _key: 'home-split-2',
+      variant: 'text-image',
+      image: {
+        _type: 'image',
+        asset: { _type: 'reference', _ref: imageAsset._id },
+      },
+      alt: 'Arckezelés a BI-EM Beauty szalonban',
+      heading: 'Sminktetoválás',
+      paragraph:
+        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+      buttonLink: {
+        _type: 'reference',
+        _ref: 'templatePage-sminktetovalas',
+      },
+    },
+    {
+      _type: 'splitSection',
+      _key: 'home-split-3',
+      variant: 'image-text',
+      image: {
+        _type: 'image',
+        asset: { _type: 'reference', _ref: imageAsset._id },
+      },
+      alt: 'Arckezelés a BI-EM Beauty szalonban',
+      heading: 'Szemöldök- és szempilla stylist',
+      paragraph:
+        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+      buttonLink: {
+        _type: 'reference',
+        _ref: 'templatePage-szemoldok-es-szempilla',
+      },
+    },
+    {
+      _type: 'splitSection',
+      _key: 'home-split-4',
+      variant: 'text-image',
+      image: {
+        _type: 'image',
+        asset: { _type: 'reference', _ref: imageAsset._id },
+      },
+      alt: 'Arckezelés a BI-EM Beauty szalonban',
+      heading: 'Kéz- és lábápolás',
+      paragraph:
+        'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+      buttonLink: {
+        _type: 'reference',
+        _ref: 'templatePage-kez-es-labapolas',
+      },
     },
   ],
 });

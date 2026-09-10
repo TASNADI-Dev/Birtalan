@@ -1,25 +1,9 @@
 ---
 import { asset } from "../lib/assets";
+import { getTemplatePages } from "../lib/sanity/queries";
 import Button from "./Button.astro";
 
-const dropdownLinks = [
-	{
-		href: "/szolgaltatasok/kozmetika",
-		label: "Kozmetikai szolgáltatások",
-	},
-	{
-		href: "/szolgaltatasok/sminktetovalas",
-		label: "Sminktetoválás",
-	},
-	{
-		href: "/szolgaltatasok/szemoldok-es-szempilla",
-		label: "Szemöldök- és szempilla stylist",
-	},
-	{ 
-		href: "/szolgaltatasok/kez-es-labapolas",
-		label: "Kéz- és lábápolás"
-	},
-];
+const dropdownLinks = await getTemplatePages();
 
 const links = [
 	{ href: "/rolunk", label: "Rólunk" },

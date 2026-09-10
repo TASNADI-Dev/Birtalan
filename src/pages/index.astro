@@ -1,57 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import HeroSection from "../components/blocks/HeroSection.astro";
-import SplitSection from "../components/SplitSection.astro";
-import { defaultHomeHero } from "../lib/sanity/defaultHomePage";
+import PageSections from "../components/blocks/PageSections.astro";
+import { defaultHomeSections } from "../lib/sanity/defaultHomePage";
 import { getHomePage } from "../lib/sanity/queries";
 
 const homePage = await getHomePage();
-const heroSection =
-	homePage?.sections?.find((section) => section._type === "heroSection") ??
-	defaultHomeHero;
+const sections =
+	homePage?.sections?.length ? homePage.sections : defaultHomeSections;
 ---
 
 <Layout title="Birtalan">
-	<HeroSection section={heroSection} />
-
-	<SplitSection
-		variant="image-text"
-		imageSrc="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=800&fit=crop"
-		imageAlt="Arckezelés a BI-EM Beauty szalonban"
-		heading="Kozmetikai szolgáltatások"
-		description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
-		buttonHref="/kozmetika"
-		buttonLabel="Részletek"
-	/>
-
-    <SplitSection
-		variant="text-image"
-		imageSrc="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=800&fit=crop"
-		imageAlt="Arckezelés a BI-EM Beauty szalonban"
-		heading="Sminktetoválás"
-		description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
-		buttonHref="/sminktetovalas"
-		buttonLabel="Részletek"
-	/>
-
-    <SplitSection
-		variant="image-text"
-		imageSrc="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=800&fit=crop"
-		imageAlt="Arckezelés a BI-EM Beauty szalonban"
-		heading="Szemöldök- és szempilla stylist"
-		description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
-		buttonHref="/szemoldok-es-szempilla"
-		buttonLabel="Részletek"
-	/>
-
-    <SplitSection
-		variant="text-image"
-		imageSrc="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=800&fit=crop"
-		imageAlt="Arckezelés a BI-EM Beauty szalonban"
-		heading="Kéz- és lábápolás"
-		description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
-		buttonHref="/kez-es-labapolas"
-		buttonLabel="Részletek"
-	/>
+	<PageSections sections={sections} />
 </Layout>
-

@@ -1,6 +1,14 @@
 // Sanity schema registry. Add document and object types here as the CMS grows.
 import { heroBlockType } from './blocks/heroBlockType';
+import { splitSectionBlockType } from './blocks/splitSectionBlockType';
+import { homePageType } from './homePageType';
 import { pageBuilderType } from './pageBuilderType';
-import { pageType } from './pageType';
+import { templatePageType } from './templatePageType';
 
-export const schemaTypes = [pageType, pageBuilderType, heroBlockType];
+export const schemaTypes = [
+  homePageType,
+  templatePageType,
+  pageBuilderType,
+  heroBlockType,
+  splitSectionBlockType,
+];

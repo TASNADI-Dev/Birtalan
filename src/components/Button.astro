@@ -1,0 +1,40 @@
+---
+interface Props {
+	variant?: "small" | "large" | "text-only";
+	href?: string;
+	type?: "button" | "submit" | "reset";
+	class?: string;
+}
+
+const {
+	variant = "small",
+	href,
+	type = "button",
+	class: className,
+	...rest
+} = Astro.props;
+
+const Tag = href ? "a" : "button";
+
+const base =
+	"inline-flex items-center justify-center whitespace-nowrap font-sans text-[0.75rem] leading-none tracking-[-0.02em] text-mandalay-950 rounded-[12px] cursor-pointer no-underline transition-[color,background,border-color,box-shadow,opacity] duration-300 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mandalay-400";
+
+const filled =
+	"relative isolate overflow-hidden border border-mandalay-200 bg-[radial-gradient(circle_at_top_left,var(--color-mandalay-100),var(--color-mandalay-300))] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:bg-[radial-gradient(circle_at_top_left,var(--color-mandalay-200),var(--color-mandalay-400))] before:opacity-0 before:transition-opacity before:duration-300 before:ease-out hover:before:opacity-100 hover:border-mandalay-300 hover:shadow-[0_6px_16px_color-mix(in_srgb,var(--color-mandalay-300)_30%,transparent)] active:shadow-none";
+
+const variants = {
+	small: `${filled} px-[0.8125rem] py-[0.46875rem]`,
+	large: `${filled} px-10 py-4`,
+	"text-only":
+		"border-0 bg-transparent px-[0.8125rem] py-[0.3125rem] hover:text-highlight active:text-mandalay-800",
+};
+---
+
+<Tag
+	class:list={[base, variants[variant], className]}
+	href={href}
+	type={href ? undefined : type}
+	{...rest}
+>
+	<slot />
+</Tag>

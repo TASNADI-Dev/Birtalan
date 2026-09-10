@@ -1,65 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Button from "../components/Button.astro";
+import HeroSection from "../components/blocks/HeroSection.astro";
 import SplitSection from "../components/SplitSection.astro";
-import { asset } from "../lib/assets";
+import { defaultHomeHero } from "../lib/sanity/defaultHomePage";
+import { getHomePage } from "../lib/sanity/queries";
+
+const homePage = await getHomePage();
+const heroSection =
+	homePage?.sections?.find((section) => section._type === "heroSection") ??
+	defaultHomeHero;
 ---
 
 <Layout title="Birtalan">
-	<section class="mx-auto w-full max-w-[1440px] px-6 py-12 md:py-20">
-		<div
-			class="grid items-center gap-10 md:grid-cols-2 md:gap-16 xl:gap-24"
-		>
-			<div class="flex flex-col gap-6 md:gap-8">
-				<p
-					class="flex flex-wrap items-center gap-x-2 font-heading text-[0.875rem] italic leading-none tracking-[-0.01em] text-mandalay-800"
-				>
-					<span>Kozmetika</span>
-					<span aria-hidden="true">·</span>
-					<span>szépség</span>
-					<span aria-hidden="true">·</span>
-					<span>önbizalom</span>
-				</p>
-
-				<div class="flex flex-col gap-3">
-					<h1
-						class="font-sans text-[3.5rem] font-light leading-[1.1] tracking-[-0.03em] text-mandalay-950"
-					>
-						<span class="text-mandalay-600"
-							>Finom elegancia, személyre szabott</span
-						> szépségápolás.
-					</h1>
-
-					<p
-						class="max-w-[32rem] text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-700"
-					>
-						A BI-EM Beauty modern, nyugodt és igényes környezetben kínál
-						arckezeléseket, szépészeti szolgáltatásokat és professzionális
-						megoldásokat azoknak, akik valódi feltöltődésre vágynak.
-					</p>
-				</div>
-
-				<div class="flex flex-wrap items-center gap-4">
-					<Button variant="large" href="/kapcsolat" arrow>
-						Időpontfoglalás
-					</Button>
-				</div>
-			</div>
-
-			<div class="relative w-full overflow-hidden rounded-[12px]">
-				<img
-					src={asset("home/hero.webp")}
-					alt="BI-EM Beauty szalon belső tere"
-					width="720"
-					height="900"
-					loading="eager"
-					fetchpriority="high"
-					decoding="async"
-					class="aspect-[4/5] w-full object-cover md:aspect-auto md:h-full md:min-h-[28rem]"
-				/>
-			</div>
-		</div>
-	</section>
+	<HeroSection section={heroSection} />
 
 	<SplitSection
 		variant="image-text"

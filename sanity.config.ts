@@ -31,4 +31,12 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+  document: {
+    newDocumentOptions: (prev, { creationContext }) => {
+      if (creationContext.type === 'global') {
+        return [];
+      }
+      return prev;
+    },
+  },
 });

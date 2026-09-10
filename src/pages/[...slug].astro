@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getTemplatePagePaths } from "../lib/sanity/queries";
+
+export async function getStaticPaths() {
+  const pages = await getTemplatePagePaths();
+
+  return pages.map((page) => ({
+    params: { slug: page.slug },
+    props: { title: page.title },
+  }));
+}
+
+const { title } = Astro.props;
+---
+
+<Layout title={title} />

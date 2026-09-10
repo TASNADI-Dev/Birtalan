@@ -2,6 +2,7 @@
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { schemaTypes } from './src/sanity/schemaTypes';
+import { structure } from './src/sanity/structure';
 
 const projectId =
   import.meta.env.PUBLIC_SANITY_PROJECT_ID ||
@@ -20,7 +21,13 @@ export default defineConfig({
   title: 'Birtalan',
   projectId,
   dataset,
-  plugins: [structureTool()],
+  plugins: [structureTool({ structure })],
+  releases: {
+    enabled: false,
+  },
+  scheduledDrafts: {
+    enabled: false,
+  },
   schema: {
     types: schemaTypes,
   },

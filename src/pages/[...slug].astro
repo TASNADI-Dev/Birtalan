@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import TemplateHeroSection from "../components/blocks/TemplateHeroSection.astro";
 import { getTemplatePagePaths } from "../lib/sanity/queries";
 
 export async function getStaticPaths() {
@@ -7,11 +8,13 @@ export async function getStaticPaths() {
 
   return pages.map((page) => ({
     params: { slug: page.slug },
-    props: { title: page.title },
+    props: { title: page.title, hero: page.hero },
   }));
 }
 
-const { title } = Astro.props;
+const { title, hero } = Astro.props;
 ---
 
-<Layout title={title} />
+<Layout title={title}>
+  <TemplateHeroSection hero={hero} />
+</Layout>

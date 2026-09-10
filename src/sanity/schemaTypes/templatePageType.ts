@@ -22,16 +22,55 @@ export const templatePageType = defineType({
       options: { source: 'title' },
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'hero',
+      title: 'Hero',
+      type: 'object',
+      options: { collapsible: false },
+      fields: [
+        defineField({
+          name: 'heading',
+          title: 'Heading',
+          type: 'string',
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          rows: 4,
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: 'image',
+          title: 'Image',
+          type: 'image',
+          options: { hotspot: true },
+          fields: [
+            defineField({
+              name: 'alt',
+              title: 'Alt text',
+              type: 'string',
+              validation: (rule) => rule.required(),
+            }),
+          ],
+          validation: (rule) => rule.required(),
+        }),
+      ],
+      validation: (rule) => rule.required(),
+    }),
   ],
   preview: {
     select: {
       title: 'title',
       slug: 'slug.current',
+      media: 'hero.image',
     },
-    prepare({ title, slug }) {
+    prepare({ title, slug, media }) {
       return {
         title,
         subtitle: slug ? `/${slug}` : undefined,
+        media,
       };
     },
   },

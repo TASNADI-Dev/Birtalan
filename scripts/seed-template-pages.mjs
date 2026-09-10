@@ -21,6 +21,16 @@ const client = createClient({
   useCdn: false,
 });
 
+const placeholderImage =
+  'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=800&fit=crop';
+
+const imageAsset = await client.assets.upload('image', placeholderImage, {
+  filename: 'template-hero-placeholder.jpg',
+});
+
+const heroDescription =
+  'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...';
+
 const templatePages = [
   {
     _id: 'templatePage-kozmetika',
@@ -50,6 +60,15 @@ for (const page of templatePages) {
     _type: 'templatePage',
     title: page.title,
     slug: page.slug,
+    hero: {
+      heading: page.title,
+      description: heroDescription,
+      image: {
+        _type: 'image',
+        asset: { _type: 'reference', _ref: imageAsset._id },
+        alt: 'BI-EM Beauty szalon belső tere',
+      },
+    },
   });
 }
 

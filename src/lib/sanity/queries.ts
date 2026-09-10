@@ -1,5 +1,6 @@
 // GROQ queries for fetching Sanity page content.
 import { sanityClient } from 'sanity:client';
+import { asset } from '../assets';
 import { defaultTemplatePages } from './defaultTemplatePages';
 
 export type PortableTextSpan = {
@@ -49,10 +50,35 @@ export type TemplatePageLink = {
   label: string;
 };
 
+export type TemplatePageHero = {
+  heading: string;
+  description: string;
+  imageUrl?: string;
+  fallbackImageUrl?: string;
+  alt: string;
+};
+
 export type TemplatePage = {
   title: string;
   slug: string;
+  hero: TemplatePageHero;
 };
+
+type FetchedTemplatePage = {
+  title: string;
+  slug: string;
+  hero: {
+    heading?: string | null;
+    description?: string | null;
+    imageUrl?: string | null;
+    alt?: string | null;
+  } | null;
+};
+
+const DEFAULT_TEMPLATE_HERO_DESCRIPTION =
+  'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...';
+
+const DEFAULT_TEMPLATE_HERO_ALT = 'BI-EM Beauty szalon belső tere';
 
 const HOME_PAGE_QUERY = /* groq */ `
   *[_id == "homePage"][0]{
@@ -108,15 +134,39 @@ const TEMPLATE_PAGES_QUERY = /* groq */ `
 const TEMPLATE_PAGE_PATHS_QUERY = /* groq */ `
   *[_type == "templatePage" && defined(slug.current)] | order(_createdAt asc) {
     title,
-    "slug": slug.current
+    "slug": slug.current,
+    "hero": {
+      "heading": hero.heading,
+      "description": hero.description,
+      "imageUrl": hero.image.asset->url,
+      "alt": hero.image.alt
+    }
   }
 `;
 
+function withHeroDefaults(page: FetchedTemplatePage): TemplatePage {
+  return {
+    title: page.title,
+    slug: page.slug,
+    hero: {
+      heading: page.hero?.heading || page.title,
+      description:
+        page.hero?.description || DEFAULT_TEMPLATE_HERO_DESCRIPTION,
+      imageUrl: page.hero?.imageUrl ?? undefined,
+      fallbackImageUrl: asset('home/hero.webp'),
+      alt: page.hero?.alt || DEFAULT_TEMPLATE_HERO_ALT,
+    },
+  };
+}
+
 function getDefaultTemplatePagePaths(): TemplatePage[] {
-  return defaultTemplatePages.map((page) => ({
-    title: page.label,
-    slug: page.href.slice(1),
-  }));
+  return defaultTemplatePages.map((page) =>
+    withHeroDefaults({
+      title: page.label,
+      slug: page.href.slice(1),
+      hero: null,
+    }),
+  );
 }
 
 export async function getTemplatePages(): Promise<TemplatePageLink[]> {
@@ -132,8 +182,10 @@ export async function getTemplatePages(): Promise<TemplatePageLink[]> {
 export async function getTemplatePagePaths(): Promise<TemplatePage[]> {
   try {
     const pages =
-      await sanityClient.fetch<TemplatePage[]>(TEMPLATE_PAGE_PATHS_QUERY);
-    return pages?.length ? pages : getDefaultTemplatePagePaths();
+      await sanityClient.fetch<FetchedTemplatePage[]>(TEMPLATE_PAGE_PATHS_QUERY);
+    return pages?.length
+      ? pages.map(withHeroDefaults)
+      : getDefaultTemplatePagePaths();
   } catch {
     return getDefaultTemplatePagePaths();
   }

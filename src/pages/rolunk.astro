@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageSections from "../components/blocks/PageSections.astro";
+import { defaultAboutSections } from "../lib/sanity/defaultAboutPage";
+import { getAboutPage } from "../lib/sanity/queries";
+
+const aboutPage = await getAboutPage();
+const sections =
+	aboutPage?.sections?.length ? aboutPage.sections : defaultAboutSections;
+---
+
+<Layout title="Rólunk">
+	<PageSections sections={sections} />
+</Layout>

@@ -51,7 +51,6 @@ export const templatePageType = defineType({
               name: 'alt',
               title: 'Alt text',
               type: 'string',
-              validation: (rule) => rule.required(),
             }),
           ],
           validation: (rule) => rule.required(),

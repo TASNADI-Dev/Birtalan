@@ -9,9 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "seed:template-pages": "node --env-file=.env scripts/seed-template-pages.mjs",
-    "seed:home": "node --env-file=.env scripts/seed-template-pages.mjs && node --env-file=.env scripts/seed-home-page.mjs"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.5",

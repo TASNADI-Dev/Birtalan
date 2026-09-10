@@ -34,7 +34,7 @@ const { section } = Astro.props;
             <div class="relative w-full overflow-hidden rounded-[12px]">
               <img
                 src={imageSrc}
-                alt={item.alt}
+                alt={item.alt ?? ''}
                 width="600"
                 height="400"
                 loading="lazy"

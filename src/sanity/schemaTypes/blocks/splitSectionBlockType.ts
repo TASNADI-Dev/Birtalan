@@ -33,7 +33,6 @@ export const splitSectionBlockType = defineType({
       name: 'alt',
       title: 'Alt text',
       type: 'string',
-      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'heading',

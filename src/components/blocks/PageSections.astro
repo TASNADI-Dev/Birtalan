@@ -1,6 +1,7 @@
 ---
 import GallerySection from './GallerySection.astro';
 import HeroSection from './HeroSection.astro';
+import PageHeroSection from './PageHeroSection.astro';
 import SplitSection from './SplitSection.astro';
 import type { PageSection } from '../../lib/sanity/queries';
 
@@ -16,6 +17,8 @@ const { sections } = Astro.props;
     switch (section._type) {
       case 'heroSection':
         return <HeroSection section={section} />;
+      case 'pageHeroSection':
+        return <PageHeroSection section={section} />;
       case 'splitSection':
         return <SplitSection section={section} />;
       case 'gallerySection':

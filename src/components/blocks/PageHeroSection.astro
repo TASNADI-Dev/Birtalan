@@ -1,0 +1,47 @@
+---
+import { buildImageUrl } from '../../lib/sanity/image';
+import { asset } from '../../lib/assets';
+import type { PageHeroSection as PageHeroSectionData } from '../../lib/sanity/queries';
+
+interface Props {
+  section: PageHeroSectionData;
+}
+
+const { section } = Astro.props;
+
+const imageSrc = section.imageUrl
+  ? buildImageUrl(section.imageUrl, { width: 1440, height: 1800 })
+  : section.fallbackImageUrl ?? asset('home/hero.webp');
+---
+
+<section class="mx-auto w-full max-w-[1440px] px-6 py-20 max-md:py-12">
+  <div
+    class="grid grid-cols-2 items-center gap-16 xl:gap-24 max-md:grid-cols-1 max-md:gap-10"
+  >
+    <div class="flex flex-col gap-3">
+      <h1
+        class="font-sans text-[3.5rem] font-light leading-[1.1] tracking-[-0.03em] text-mandalay-950 max-md:text-[2.5rem]"
+      >
+        {section.heading}
+      </h1>
+      <p
+        class="max-w-[32rem] text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-700"
+      >
+        {section.description}
+      </p>
+    </div>
+
+    <div class="relative w-full overflow-hidden rounded-[12px]">
+      <img
+        src={imageSrc}
+        alt={section.alt ?? ''}
+        width="720"
+        height="900"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="h-full min-h-[28rem] w-full object-cover max-md:aspect-[4/5] max-md:h-auto max-md:min-h-0"
+      />
+    </div>
+  </div>
+</section>

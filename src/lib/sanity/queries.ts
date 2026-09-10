@@ -32,7 +32,7 @@ export type SplitSection = {
   variant: 'image-text' | 'text-image';
   imageUrl?: string;
   fallbackImageUrl?: string;
-  alt: string;
+  alt?: string;
   heading: string;
   paragraph: string;
   buttonHref?: string;
@@ -42,7 +42,7 @@ export type SplitSection = {
 export type GalleryImage = {
   imageUrl?: string;
   fallbackImageUrl?: string;
-  alt: string;
+  alt?: string;
 };
 
 export type GallerySection = {
@@ -52,9 +52,27 @@ export type GallerySection = {
   images: GalleryImage[];
 };
 
-export type PageSection = HeroSection | SplitSection | GallerySection;
+export type PageHeroSection = {
+  _type: 'pageHeroSection';
+  _key: string;
+  heading: string;
+  description: string;
+  imageUrl?: string;
+  fallbackImageUrl?: string;
+  alt?: string;
+};
+
+export type PageSection =
+  | HeroSection
+  | SplitSection
+  | GallerySection
+  | PageHeroSection;
 
 export type HomePage = {
+  sections: PageSection[] | null;
+};
+
+export type AboutPage = {
   sections: PageSection[] | null;
 };
 
@@ -68,7 +86,7 @@ export type TemplatePageHero = {
   description: string;
   imageUrl?: string;
   fallbackImageUrl?: string;
-  alt: string;
+  alt?: string;
 };
 
 export type TemplatePage = {
@@ -139,6 +157,29 @@ const HOME_PAGE_QUERY = /* groq */ `
 export async function getHomePage(): Promise<HomePage | null> {
   try {
     return await sanityClient.fetch<HomePage | null>(HOME_PAGE_QUERY);
+  } catch {
+    return null;
+  }
+}
+
+const ABOUT_PAGE_QUERY = /* groq */ `
+  *[_id == "aboutPage"][0]{
+    sections[]{
+      _key,
+      _type,
+      _type == "pageHeroSection" => {
+        heading,
+        description,
+        "imageUrl": image.asset->url,
+        "alt": image.alt
+      }
+    }
+  }
+`;
+
+export async function getAboutPage(): Promise<AboutPage | null> {
+  try {
+    return await sanityClient.fetch<AboutPage | null>(ABOUT_PAGE_QUERY);
   } catch {
     return null;
   }

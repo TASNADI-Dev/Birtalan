@@ -1,4 +1,4 @@
-/** Opens the services dropdown on desktop hover and on mobile tap. */
+/* Opens the services dropdown on desktop hover and on mobile tap. */
 
 const MOBILE_QUERY = "(width < 48rem)";
 

@@ -27,6 +27,7 @@
   --color-mako-950: #25272c;
   --color-mako: var(--color-mako-500);
 
+  --color-white: #ffffff;
   --color-foreground: var(--color-mandalay-950);
   --color-highlight: var(--color-mandalay-600);
 

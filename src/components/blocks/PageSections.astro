@@ -1,4 +1,5 @@
 ---
+import GallerySection from './GallerySection.astro';
 import HeroSection from './HeroSection.astro';
 import SplitSection from './SplitSection.astro';
 import type { PageSection } from '../../lib/sanity/queries';
@@ -17,6 +18,8 @@ const { sections } = Astro.props;
         return <HeroSection section={section} />;
       case 'splitSection':
         return <SplitSection section={section} />;
+      case 'gallerySection':
+        return <GallerySection section={section} />;
       default:
         return null;
     }

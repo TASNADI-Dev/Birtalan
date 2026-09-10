@@ -39,7 +39,20 @@ export type SplitSection = {
   buttonLabel?: string;
 };
 
-export type PageSection = HeroSection | SplitSection;
+export type GalleryImage = {
+  imageUrl?: string;
+  fallbackImageUrl?: string;
+  alt: string;
+};
+
+export type GallerySection = {
+  _type: 'gallerySection';
+  _key: string;
+  heading: string;
+  images: GalleryImage[];
+};
+
+export type PageSection = HeroSection | SplitSection | GallerySection;
 
 export type HomePage = {
   sections: PageSection[] | null;
@@ -111,6 +124,13 @@ const HOME_PAGE_QUERY = /* groq */ `
           defined(buttonLink->slug.current) => "/" + buttonLink->slug.current,
           null
         )
+      },
+      _type == "gallerySection" => {
+        heading,
+        "images": images[]{
+          "imageUrl": image.asset->url,
+          alt
+        }
       }
     }
   }

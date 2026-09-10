@@ -1,6 +1,6 @@
 ---
 import HeroSection from './HeroSection.astro';
-import SplitSectionBlock from './SplitSectionBlock.astro';
+import SplitSection from './SplitSection.astro';
 import type { PageSection } from '../../lib/sanity/queries';
 
 interface Props {
@@ -16,7 +16,7 @@ const { sections } = Astro.props;
       case 'heroSection':
         return <HeroSection section={section} />;
       case 'splitSection':
-        return <SplitSectionBlock section={section} />;
+        return <SplitSection section={section} />;
       default:
         return null;
     }

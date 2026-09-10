@@ -1,0 +1,154 @@
+---
+import { asset } from "../lib/assets";
+import Button from "./Button.astro";
+
+const dropdownLinks = [
+	{
+		href: "/szolgaltatasok/kozmetikai-szolgaltatasok",
+		label: "Kozmetikai szolgáltatások",
+	},
+	{ href: "/szolgaltatasok/sminktetovalas", label: "Sminktetoválás" },
+	{
+		href: "/szolgaltatasok/szemoldok-es-szempilla-stylist",
+		label: "Szemöldök- és szempilla stylist",
+	},
+	{ href: "/szolgaltatasok/kez-es-labapolas", label: "Kéz- és lábápolás" },
+];
+
+const links = [
+	{ href: "/rolunk", label: "Rólunk" },
+	{ href: "/galeria", label: "Galéria" },
+];
+---
+
+<nav class="group/nav fixed inset-x-0 top-0 z-50" data-nav data-open="false">
+	<div
+		class="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-3"
+	>
+		<a href="/" class="shrink-0">
+			<img
+				src={asset("global/logo.svg")}
+				alt="Birtalan"
+				class="h-[2.5rem] w-auto"
+			/>
+		</a>
+		<div class="flex items-center gap-8 max-md:gap-4">
+			<ul
+				id="nav-links"
+				data-nav-menu
+				class:list={[
+					"flex items-center gap-8",
+					"max-md:absolute max-md:inset-x-0 max-md:top-full max-md:z-20",
+					"max-md:flex-col max-md:items-stretch max-md:gap-6",
+					"max-md:border-t max-md:border-mandalay-100 max-md:bg-mandalay-50 max-md:px-6 max-md:py-6",
+					"max-md:pointer-events-none max-md:opacity-0 max-md:-translate-y-1",
+					"max-md:transition-[opacity,transform] max-md:duration-300 max-md:ease-out max-md:motion-reduce:transition-none",
+					"max-md:group-data-[open=true]/nav:pointer-events-auto max-md:group-data-[open=true]/nav:translate-y-0 max-md:group-data-[open=true]/nav:opacity-100",
+				]}
+			>
+				<li
+					class="group/drop relative leading-[0.75rem] max-md:w-full"
+					data-nav-dropdown
+					data-open="false"
+				>
+					<button
+						type="button"
+						class="flex w-full cursor-pointer items-center gap-1 p-0 text-[0.75rem] leading-[0.75rem] text-mandalay-950 transition-colors duration-200 hover:text-highlight max-md:justify-between max-md:py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mandalay-400"
+						aria-expanded="false"
+						aria-haspopup="true"
+						aria-controls="nav-dropdown"
+						data-nav-dropdown-toggle
+					>
+						Szolgáltatások és árak
+						<svg
+							class="size-3 shrink-0 transition-transform duration-200 ease-out motion-reduce:transition-none group-data-[open=true]/drop:rotate-180"
+							viewBox="0 0 12 12"
+							fill="none"
+							aria-hidden="true"
+						>
+							<path
+								d="M2.5 4.5 6 8l3.5-3.5"
+								stroke="currentColor"
+								stroke-width="1.25"
+								stroke-linecap="round"
+								stroke-linejoin="round"></path>
+						</svg>
+					</button>
+					<div
+						id="nav-dropdown"
+						data-nav-dropdown-panel
+						class:list={[
+							"absolute top-full left-0 z-30 min-w-[17.5rem] pt-2",
+							"pointer-events-none translate-y-1 overflow-hidden opacity-0",
+							"transition-[opacity,transform,max-height] duration-200 ease-out motion-reduce:transition-none",
+							"group-data-[open=true]/drop:pointer-events-auto group-data-[open=true]/drop:translate-y-0 group-data-[open=true]/drop:opacity-100",
+							"max-md:static max-md:min-w-0 max-md:max-h-0 max-md:translate-y-0 max-md:pt-0",
+							"max-md:group-data-[open=true]/drop:max-h-96",
+						]}
+					>
+						<ul
+							class="flex flex-col gap-3 rounded-[12px] border border-mandalay-100 bg-mandalay-50 px-4 py-3 max-md:gap-4 max-md:rounded-none max-md:border-0 max-md:bg-transparent max-md:px-0 max-md:py-3 max-md:pl-3"
+						>
+							{
+								dropdownLinks.map((link) => (
+									<li>
+										<a
+											href={link.href}
+											class="block whitespace-nowrap text-[0.75rem] leading-[0.75rem] text-mandalay-950 transition-colors duration-200 hover:text-highlight max-md:whitespace-normal max-md:py-1"
+										>
+											{link.label}
+										</a>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				</li>
+				{
+					links.map((link) => (
+						<li>
+							<a
+								href={link.href}
+								class="block text-[0.75rem] leading-[0.75rem] text-mandalay-950 transition-colors duration-200 hover:text-highlight max-md:py-1"
+							>
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+			<Button variant="small" href="/kapcsolat">Kapcsolat</Button>
+			<button
+				type="button"
+				class="group/toggle relative hidden size-10 shrink-0 cursor-pointer items-center justify-center max-md:inline-flex focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mandalay-400"
+				aria-label="Menü megnyitása"
+				aria-expanded="false"
+				aria-controls="nav-links"
+				data-nav-toggle
+			>
+				<span
+					class="relative block h-[0.875rem] w-[1.25rem]"
+					aria-hidden="true"
+				>
+					<span
+						class="absolute inset-x-0 top-0 h-0.5 origin-center rounded-full bg-mandalay-950 transition-transform duration-300 ease-out motion-reduce:transition-none group-aria-expanded/toggle:translate-y-[0.375rem] group-aria-expanded/toggle:rotate-45"
+					></span>
+					<span
+						class="absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-mandalay-950 transition-opacity duration-300 ease-out motion-reduce:transition-none group-aria-expanded/toggle:opacity-0"
+					></span>
+					<span
+						class="absolute inset-x-0 bottom-0 h-0.5 origin-center rounded-full bg-mandalay-950 transition-transform duration-300 ease-out motion-reduce:transition-none group-aria-expanded/toggle:-translate-y-[0.375rem] group-aria-expanded/toggle:-rotate-45"
+					></span>
+				</span>
+			</button>
+		</div>
+	</div>
+</nav>
+
+<script>
+	import { initNavDropdown } from "../scripts/nav-dropdown";
+	import { initNavMenu } from "../scripts/nav-menu";
+
+	initNavDropdown();
+	initNavMenu();
+</script>

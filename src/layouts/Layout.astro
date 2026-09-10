@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Nav from "../components/Nav.astro";
 import { asset } from "../lib/assets";
 
 interface Props {
@@ -24,7 +25,8 @@ const { title = "Astro" } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class="pt-[4rem]">
+		<Nav />
 		<slot />
 	</body>
 </html>

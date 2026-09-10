@@ -3,6 +3,7 @@ interface Props {
 	variant?: "small" | "large" | "text-only";
 	href?: string;
 	type?: "button" | "submit" | "reset";
+	arrow?: boolean;
 	class?: string;
 }
 
@@ -10,6 +11,7 @@ const {
 	variant = "small",
 	href,
 	type = "button",
+	arrow = false,
 	class: className,
 	...rest
 } = Astro.props;
@@ -26,15 +28,33 @@ const variants = {
 	small: `${filled} px-[0.8125rem] py-[0.46875rem]`,
 	large: `${filled} px-10 py-4`,
 	"text-only":
-		"border-0 bg-transparent px-[0.8125rem] py-[0.3125rem] hover:text-highlight active:text-mandalay-800",
+		"border-0 bg-transparent py-[0.3125rem] hover:text-highlight active:text-mandalay-800",
 };
 ---
 
 <Tag
-	class:list={[base, variants[variant], className]}
+	class:list={[base, variants[variant], arrow && "gap-1.5", className]}
 	href={href}
 	type={href ? undefined : type}
 	{...rest}
 >
 	<slot />
+	{
+		arrow && (
+			<svg
+				class="size-3 shrink-0"
+				viewBox="0 0 12 12"
+				fill="none"
+				aria-hidden="true"
+			>
+				<path
+					d="M1.75 6h8.5M7.25 2.75 10.5 6 7.25 9.25"
+					stroke="currentColor"
+					stroke-width="1.25"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+			</svg>
+		)
+	}
 </Tag>

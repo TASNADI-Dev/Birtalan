@@ -1,0 +1,71 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+	variant?: "image-text" | "text-image";
+	imageSrc: string;
+	imageAlt: string;
+	heading: string;
+	description: string;
+	buttonHref: string;
+	buttonLabel: string;
+}
+
+const {
+	variant = "image-text",
+	imageSrc,
+	imageAlt,
+	heading,
+	description,
+	buttonHref,
+	buttonLabel,
+} = Astro.props;
+
+const isReversed = variant === "text-image";
+---
+
+<section class="mx-auto w-full max-w-[1440px] px-6 py-12 md:py-20">
+	<div class="grid grid-cols-2 items-center gap-16 xl:gap-24 max-md:grid-cols-1 max-md:gap-10">
+		<div
+			class:list={[
+				"relative w-full overflow-hidden rounded-[12px]",
+				isReversed && "order-2 max-md:order-first",
+			]}
+		>
+			<img
+				src={imageSrc}
+				alt={imageAlt}
+				width="800"
+				height="800"
+				loading="lazy"
+				decoding="async"
+				class="aspect-square w-full object-cover"
+			/>
+		</div>
+
+		<div
+			class:list={[
+				"flex flex-col gap-6 md:gap-8",
+				isReversed && "order-1 max-md:order-last",
+			]}
+		>
+			<div class="flex flex-col gap-3">
+				<h2
+					class="font-sans text-[2.5rem] font-light leading-[1.1] tracking-[-0.03em] text-mandalay-950 max-md:text-[2rem]"
+				>
+					{heading}
+				</h2>
+				<p
+					class="max-w-[32rem] text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-700"
+				>
+					{description}
+				</p>
+			</div>
+			<div>
+				<Button variant="text-only" href={buttonHref} arrow>
+					{buttonLabel}
+				</Button>
+			</div>
+		</div>
+	</div>
+</section>

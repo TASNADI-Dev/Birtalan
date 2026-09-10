@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/Button.astro";
+import SplitSection from "../components/SplitSection.astro";
 import { asset } from "../lib/assets";
 ---
 
@@ -39,7 +40,9 @@ import { asset } from "../lib/assets";
 				</div>
 
 				<div class="flex flex-wrap items-center gap-4">
-					<Button variant="large" href="/kapcsolat">Időpontfoglalás</Button>
+					<Button variant="large" href="/kapcsolat" arrow>
+						Időpontfoglalás
+					</Button>
 				</div>
 			</div>
 
@@ -57,4 +60,45 @@ import { asset } from "../lib/assets";
 			</div>
 		</div>
 	</section>
+
+	<SplitSection
+		variant="image-text"
+		imageSrc="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=800&fit=crop"
+		imageAlt="Arckezelés a BI-EM Beauty szalonban"
+		heading="Kozmetikai szolgáltatások"
+		description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
+		buttonHref="/kozmetika"
+		buttonLabel="Részletek"
+	/>
+
+    <SplitSection
+		variant="text-image"
+		imageSrc="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=800&fit=crop"
+		imageAlt="Arckezelés a BI-EM Beauty szalonban"
+		heading="Sminktetoválás"
+		description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
+		buttonHref="/sminktetovalas"
+		buttonLabel="Részletek"
+	/>
+
+    <SplitSection
+		variant="image-text"
+		imageSrc="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=800&fit=crop"
+		imageAlt="Arckezelés a BI-EM Beauty szalonban"
+		heading="Szemöldök- és szempilla stylist"
+		description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
+		buttonHref="/szemoldok-es-szempilla"
+		buttonLabel="Részletek"
+	/>
+
+    <SplitSection
+		variant="text-image"
+		imageSrc="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=800&fit=crop"
+		imageAlt="Arckezelés a BI-EM Beauty szalonban"
+		heading="Kéz- és lábápolás"
+		description="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
+		buttonHref="/kez-es-labapolas"
+		buttonLabel="Részletek"
+	/>
 </Layout>
+

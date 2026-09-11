@@ -4,6 +4,8 @@ import { structureTool } from 'sanity/structure';
 import { schemaTypes } from './src/sanity/schemaTypes';
 import { structure } from './src/sanity/structure';
 
+const SINGLETON_TYPES = ['homePage', 'aboutPage', 'galleryPage'];
+
 const projectId =
   import.meta.env.PUBLIC_SANITY_PROJECT_ID ||
   process.env.PUBLIC_SANITY_PROJECT_ID;
@@ -30,6 +32,10 @@ export default defineConfig({
   },
   schema: {
     types: schemaTypes,
+    templates: (templates) =>
+      templates.filter(
+        ({ schemaType }) => !SINGLETON_TYPES.includes(schemaType),
+      ),
   },
   document: {
     newDocumentOptions: (prev, { creationContext }) => {

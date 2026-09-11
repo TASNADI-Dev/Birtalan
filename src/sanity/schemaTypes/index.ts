@@ -4,13 +4,17 @@ import { heroBlockType } from './blocks/heroBlockType';
 import { pageHeroSectionBlockType } from './blocks/pageHeroSectionBlockType';
 import { splitSectionBlockType } from './blocks/splitSectionBlockType';
 import { aboutPageType } from './aboutPageType';
+import { galleryPageType } from './galleryPageType';
 import { homePageType } from './homePageType';
 import { pageBuilderType } from './pageBuilderType';
+import { templatePageGalleryImageType } from './templatePageGalleryImageType';
 import { templatePageType } from './templatePageType';
 
 export const schemaTypes = [
   homePageType,
   aboutPageType,
+  galleryPageType,
+  templatePageGalleryImageType,
   templatePageType,
   pageBuilderType,
   heroBlockType,

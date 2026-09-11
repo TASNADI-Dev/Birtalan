@@ -95,6 +95,12 @@ export type TemplatePage = {
   hero: TemplatePageHero;
 };
 
+export type GalleryPageTab = {
+  title: string;
+  slug: string;
+  images: GalleryImage[];
+};
+
 type FetchedTemplatePage = {
   title: string;
   slug: string;
@@ -249,5 +255,35 @@ export async function getTemplatePagePaths(): Promise<TemplatePage[]> {
       : getDefaultTemplatePagePaths();
   } catch {
     return getDefaultTemplatePagePaths();
+  }
+}
+
+const GALLERY_PAGE_TABS_QUERY = /* groq */ `
+  *[_type == "templatePage" && defined(slug.current)] | order(_createdAt asc) {
+    title,
+    "slug": slug.current,
+    "images": galleryImages[]{
+      _key,
+      "imageUrl": image.asset->url,
+      "alt": image.alt
+    }
+  }
+`;
+
+function getDefaultGalleryPageTabs(): GalleryPageTab[] {
+  return defaultTemplatePages.map((page) => ({
+    title: page.label,
+    slug: page.href.slice(1),
+    images: [],
+  }));
+}
+
+export async function getGalleryPageTabs(): Promise<GalleryPageTab[]> {
+  try {
+    const tabs =
+      await sanityClient.fetch<GalleryPageTab[]>(GALLERY_PAGE_TABS_QUERY);
+    return tabs?.length ? tabs : getDefaultGalleryPageTabs();
+  } catch {
+    return getDefaultGalleryPageTabs();
   }
 }

@@ -1,5 +1,5 @@
 // Template pages linked from navigation and split section buttons.
-import { defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from 'sanity';
 import { DocumentIcon } from '@sanity/icons/Document';
 
 export const templatePageType = defineType({
@@ -58,17 +58,36 @@ export const templatePageType = defineType({
       ],
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'galleryImages',
+      title: 'Galéria képek',
+      type: 'array',
+      description:
+        'Add as many images as needed. When queried, each image is tagged with this page title and URL path.',
+      options: {
+        layout: 'grid',
+      },
+      of: [defineArrayMember({ type: 'templatePageGalleryImage' })],
+    }),
   ],
   preview: {
     select: {
       title: 'title',
       slug: 'slug.current',
       media: 'hero.image',
+      imageCount: 'length(galleryImages)',
     },
-    prepare({ title, slug, media }) {
+    prepare({ title, slug, media, imageCount }) {
+      const galleryLabel =
+        typeof imageCount === 'number' && imageCount > 0
+          ? `${imageCount} gallery image${imageCount === 1 ? '' : 's'}`
+          : undefined;
+
       return {
         title,
-        subtitle: slug ? `/${slug}` : undefined,
+        subtitle: [slug ? `/${slug}` : undefined, galleryLabel]
+          .filter(Boolean)
+          .join(' · '),
         media,
       };
     },

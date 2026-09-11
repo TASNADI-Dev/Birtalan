@@ -1,0 +1,11 @@
+---
+import GalleryPageSection from "../components/blocks/GalleryPageSection.astro";
+import Layout from "../layouts/Layout.astro";
+import { getGalleryPageTabs } from "../lib/sanity/queries";
+
+const tabs = await getGalleryPageTabs();
+---
+
+<Layout title="Galéria">
+	<GalleryPageSection tabs={tabs} />
+</Layout>

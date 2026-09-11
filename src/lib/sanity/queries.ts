@@ -85,8 +85,16 @@ export type AboutPage = {
   sections: PageSection[] | null;
 };
 
+export type ContactDetails = {
+  phone?: string | null;
+  email?: string | null;
+  tiktok?: string | null;
+  instagram?: string | null;
+};
+
 export type ContactPage = {
   intro: PortableTextBlock[] | null;
+  contacts: ContactDetails | null;
 };
 
 export type TemplatePageLink = {
@@ -223,6 +231,12 @@ const CONTACT_PAGE_QUERY = /* groq */ `
         text,
         marks
       }
+    },
+    contacts {
+      phone,
+      email,
+      tiktok,
+      instagram
     }
   }
 `;

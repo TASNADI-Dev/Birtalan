@@ -1,14 +1,21 @@
 // Sanity Studio desk structure: page singletons and template pages.
+import { EnvelopeIcon } from '@sanity/icons/Envelope';
 import { HomeIcon } from '@sanity/icons/Home';
 import { ImagesIcon } from '@sanity/icons/Images';
 import { UsersIcon } from '@sanity/icons/Users';
 import type { StructureResolver } from 'sanity/structure';
 
-const SINGLETONS = ['homePage', 'aboutPage', 'galleryPage'] as const;
+const SINGLETONS = [
+  'homePage',
+  'aboutPage',
+  'galleryPage',
+  'contactPage',
+] as const;
 const STRUCTURED_TYPES = [
   'homePage',
   'aboutPage',
   'galleryPage',
+  'contactPage',
   'templatePage',
 ] as const;
 
@@ -44,6 +51,15 @@ export const structure: StructureResolver = (S) =>
             .schemaType('galleryPage')
             .documentId('galleryPage')
             .title('Galéria'),
+        ),
+      S.listItem()
+        .title('Kapcsolat')
+        .icon(EnvelopeIcon)
+        .child(
+          S.document()
+            .schemaType('contactPage')
+            .documentId('contactPage')
+            .title('Kapcsolat'),
         ),
       S.divider(),
       S.documentTypeListItem('templatePage').title('Sablon oldalak'),

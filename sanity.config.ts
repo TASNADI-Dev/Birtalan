@@ -4,7 +4,12 @@ import { structureTool } from 'sanity/structure';
 import { schemaTypes } from './src/sanity/schemaTypes';
 import { structure } from './src/sanity/structure';
 
-const SINGLETON_TYPES = ['homePage', 'aboutPage', 'galleryPage'];
+const SINGLETON_TYPES = [
+  'homePage',
+  'aboutPage',
+  'galleryPage',
+  'contactPage',
+];
 
 const projectId =
   import.meta.env.PUBLIC_SANITY_PROJECT_ID ||

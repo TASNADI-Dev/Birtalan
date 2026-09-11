@@ -1,0 +1,35 @@
+---
+import { renderPortableTextHtml } from '../../lib/sanity/renderPortableText';
+import type { PortableTextBlock } from '../../lib/sanity/queries';
+
+interface Props {
+  intro?: PortableTextBlock[] | null;
+}
+
+const { intro } = Astro.props;
+const introHtml = renderPortableTextHtml(intro ?? undefined);
+---
+
+<section class="mx-auto w-full max-w-[1440px] px-6 py-20 max-md:py-12">
+  <div
+    class="grid grid-cols-2 items-start gap-16 xl:gap-24 max-md:grid-cols-1 max-md:gap-10"
+  >
+    <div class="flex flex-col gap-3">
+      <h1
+        class="font-sans text-[3.5rem] font-light leading-[1.1] tracking-[-0.03em] text-mandalay-950 max-md:text-[2.5rem]"
+      >
+        Foglalj időpontot!
+      </h1>
+      {
+        introHtml && (
+          <div
+            class="flex max-w-[32rem] flex-col gap-3 text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-700 [&_a]:text-highlight [&_a]:underline [&_a]:underline-offset-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ul]:list-disc [&_ul]:pl-5"
+            set:html={introHtml}
+          />
+        )
+      }
+    </div>
+
+    <div class="w-full"></div>
+  </div>
+</section>

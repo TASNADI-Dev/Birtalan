@@ -1,0 +1,11 @@
+---
+import ContactHeroSection from "../components/blocks/ContactHeroSection.astro";
+import Layout from "../layouts/Layout.astro";
+import { getContactPage } from "../lib/sanity/queries";
+
+const contactPage = await getContactPage();
+---
+
+<Layout title="Kapcsolat">
+	<ContactHeroSection intro={contactPage?.intro} />
+</Layout>

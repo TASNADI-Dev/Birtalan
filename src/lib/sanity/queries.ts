@@ -10,11 +10,20 @@ export type PortableTextSpan = {
   marks?: string[];
 };
 
+export type PortableTextMarkDef = {
+  _key: string;
+  _type: string;
+  href?: string;
+};
+
 export type PortableTextBlock = {
   _type: 'block';
   _key: string;
   style: string;
+  listItem?: 'bullet' | 'number';
+  level?: number;
   children: PortableTextSpan[];
+  markDefs?: PortableTextMarkDef[];
 };
 
 export type HeroSection = {
@@ -74,6 +83,10 @@ export type HomePage = {
 
 export type AboutPage = {
   sections: PageSection[] | null;
+};
+
+export type ContactPage = {
+  intro: PortableTextBlock[] | null;
 };
 
 export type TemplatePageLink = {
@@ -186,6 +199,37 @@ const ABOUT_PAGE_QUERY = /* groq */ `
 export async function getAboutPage(): Promise<AboutPage | null> {
   try {
     return await sanityClient.fetch<AboutPage | null>(ABOUT_PAGE_QUERY);
+  } catch {
+    return null;
+  }
+}
+
+const CONTACT_PAGE_QUERY = /* groq */ `
+  *[_id == "contactPage"][0]{
+    intro[]{
+      _key,
+      _type,
+      style,
+      listItem,
+      level,
+      markDefs[]{
+        _key,
+        _type,
+        href
+      },
+      children[]{
+        _key,
+        _type,
+        text,
+        marks
+      }
+    }
+  }
+`;
+
+export async function getContactPage(): Promise<ContactPage | null> {
+  try {
+    return await sanityClient.fetch<ContactPage | null>(CONTACT_PAGE_QUERY);
   } catch {
     return null;
   }

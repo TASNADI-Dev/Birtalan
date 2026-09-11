@@ -59,6 +59,11 @@ export const templatePageType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'priceList',
+      title: 'Árlista',
+      type: 'priceList',
+    }),
+    defineField({
       name: 'galleryImages',
       title: 'Galéria képek',
       type: 'array',

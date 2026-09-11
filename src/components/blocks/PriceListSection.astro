@@ -1,0 +1,106 @@
+---
+import type { PriceList } from '../../lib/sanity/queries';
+
+interface Props {
+  priceList: PriceList;
+}
+
+const { priceList } = Astro.props;
+
+const rows = priceList.rows ?? [];
+const infoSections = priceList.infoSections ?? [];
+
+function shouldShowCategory(index: number): boolean {
+  const category = rows[index]?.category?.trim();
+  if (!category) return false;
+  if (index === 0) return true;
+  return category !== rows[index - 1]?.category?.trim();
+}
+---
+
+<section class="mx-auto w-full max-w-[1440px] px-6 py-12 md:py-20">
+  <div class="flex flex-col gap-10 md:gap-12">
+    <h2
+      class="font-sans text-[2.5rem] font-light leading-[1.1] tracking-[-0.03em] text-mandalay-950 max-md:text-[2rem]"
+    >
+      Árlista
+    </h2>
+
+    {
+      rows.length > 0 && (
+        <div class="flex flex-col gap-10 md:gap-12">
+          {rows.map((row, index) => (
+            <div class="flex flex-col gap-4">
+              {
+                shouldShowCategory(index) && (
+                  <h3 class="border-t border-mako-100 pt-6 font-sans text-[0.875rem] font-medium uppercase tracking-[0.06em] text-mandalay-700 md:pt-8">
+                    {row.category}
+                  </h3>
+                )
+              }
+              <div class="flex flex-col gap-2 border-b border-mako-100 pb-6 last:border-b-0 last:pb-0">
+                <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                  <h4 class="font-sans text-[1.125rem] font-normal leading-[1.3] tracking-[-0.02em] text-mandalay-950">
+                    {row.service}
+                  </h4>
+                  <p class="shrink-0 text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-600">
+                    Ár:{' '}
+                    <span class="font-semibold text-mandalay-950">{row.price}</span>
+                  </p>
+                </div>
+                {
+                  row.description && (
+                    <p class="max-w-[40rem] text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-600">
+                      {row.description}
+                    </p>
+                  )
+                }
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      infoSections.map((section) => (
+        <div class="flex flex-col gap-4">
+          <h3 class="border-t border-mako-100 pt-6 font-sans text-[0.875rem] font-medium uppercase tracking-[0.06em] text-mandalay-700 md:pt-8">
+            {section.heading}
+          </h3>
+          {
+            section.intro && (
+              <p class="max-w-[40rem] text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-700">
+                {section.intro}
+              </p>
+            )
+          }
+          {
+            section.bullets && section.bullets.length > 0 && (
+              <ul class="flex max-w-[40rem] list-disc flex-col gap-2 pl-5 text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-700">
+                {section.bullets.map((bullet) => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
+            )
+          }
+          {
+            section.notes?.map((note) => (
+              <p class="max-w-[40rem] text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-700">
+                {note}
+              </p>
+            ))
+          }
+        </div>
+      ))
+    }
+
+    {
+      priceList.footnote && (
+        <p class="max-w-[40rem] whitespace-pre-line text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-500">
+          {priceList.footnote}
+        </p>
+      )
+    }
+  </div>
+</section>

@@ -9,6 +9,7 @@ import { galleryPageType } from './galleryPageType';
 import { homePageType } from './homePageType';
 import { pageBuilderType } from './pageBuilderType';
 import { templatePageGalleryImageType } from './templatePageGalleryImageType';
+import { priceListType } from './priceListType';
 import { templatePageType } from './templatePageType';
 
 export const schemaTypes = [
@@ -17,6 +18,7 @@ export const schemaTypes = [
   contactPageType,
   galleryPageType,
   templatePageGalleryImageType,
+  priceListType,
   templatePageType,
   pageBuilderType,
   heroBlockType,

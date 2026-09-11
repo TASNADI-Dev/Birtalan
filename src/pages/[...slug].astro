@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PriceListSection from "../components/blocks/PriceListSection.astro";
 import TemplateHeroSection from "../components/blocks/TemplateHeroSection.astro";
 import { getTemplatePagePaths } from "../lib/sanity/queries";
 
@@ -8,13 +9,14 @@ export async function getStaticPaths() {
 
   return pages.map((page) => ({
     params: { slug: page.slug },
-    props: { title: page.title, hero: page.hero },
+    props: { title: page.title, hero: page.hero, priceList: page.priceList },
   }));
 }
 
-const { title, hero } = Astro.props;
+const { title, hero, priceList } = Astro.props;
 ---
 
 <Layout title={title}>
   <TemplateHeroSection hero={hero} />
+  {priceList && <PriceListSection priceList={priceList} />}
 </Layout>

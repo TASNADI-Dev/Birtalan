@@ -110,10 +110,31 @@ export type TemplatePageHero = {
   alt?: string;
 };
 
+export type PriceListRow = {
+  category?: string;
+  service: string;
+  price: string;
+  description?: string;
+};
+
+export type PriceListInfoSection = {
+  heading: string;
+  intro?: string;
+  bullets?: string[];
+  notes?: string[];
+};
+
+export type PriceList = {
+  rows: PriceListRow[];
+  infoSections?: PriceListInfoSection[];
+  footnote?: string;
+};
+
 export type TemplatePage = {
   title: string;
   slug: string;
   hero: TemplatePageHero;
+  priceList?: PriceList | null;
 };
 
 export type GalleryPageTab = {
@@ -130,6 +151,11 @@ type FetchedTemplatePage = {
     description?: string | null;
     imageUrl?: string | null;
     alt?: string | null;
+  } | null;
+  priceList?: {
+    rows?: PriceListRow[] | null;
+    infoSections?: PriceListInfoSection[] | null;
+    footnote?: string | null;
   } | null;
 };
 
@@ -265,11 +291,31 @@ const TEMPLATE_PAGE_PATHS_QUERY = /* groq */ `
       "description": hero.description,
       "imageUrl": hero.image.asset->url,
       "alt": hero.image.alt
+    },
+    priceList {
+      rows[] {
+        category,
+        service,
+        price,
+        description
+      },
+      infoSections[] {
+        heading,
+        intro,
+        bullets,
+        notes
+      },
+      footnote
     }
   }
 `;
 
 function withHeroDefaults(page: FetchedTemplatePage): TemplatePage {
+  const rows = page.priceList?.rows?.filter(
+    (row): row is PriceListRow =>
+      Boolean(row?.service?.trim()) && Boolean(row?.price?.trim()),
+  );
+
   return {
     title: page.title,
     slug: page.slug,
@@ -281,6 +327,16 @@ function withHeroDefaults(page: FetchedTemplatePage): TemplatePage {
       fallbackImageUrl: asset('home/hero.webp'),
       alt: page.hero?.alt || DEFAULT_TEMPLATE_HERO_ALT,
     },
+    priceList:
+      rows?.length ||
+      page.priceList?.infoSections?.length ||
+      page.priceList?.footnote
+        ? {
+            rows: rows ?? [],
+            infoSections: page.priceList?.infoSections ?? undefined,
+            footnote: page.priceList?.footnote ?? undefined,
+          }
+        : null,
   };
 }
 

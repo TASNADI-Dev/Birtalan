@@ -7,7 +7,6 @@ const templateLinks = await getTemplatePages();
 const contacts = await getGlobalContacts();
 const socialLinks = getSocialContactLinks(contacts);
 const currentYear = new Date().getFullYear();
-const privacyUrl = asset('global/BIEM-adatvedelmi-nyilatkozat.pdf');
 const socialAriaLabels = {
   tiktok: 'TikTok',
   instagram: 'Instagram',
@@ -78,7 +77,7 @@ const bottomLinkClass = `${linkClass} underline underline-offset-2`;
         class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.75rem] leading-[0.75rem] text-mandalay-950"
       >
         <span>Minden jog fenntartva. © Copyright {currentYear} Birtalan Emőke</span>
-        <a href={privacyUrl} target="_blank" class={bottomLinkClass}>Adatvédelmi nyilatkozat</a>
+        <a href="/adatvedelmi-nyilatkozat" class={bottomLinkClass}>Adatvédelmi nyilatkozat</a>
         <button
           type="button"
           class:list={['cky-banner-element', bottomLinkClass, 'cursor-pointer p-0']}

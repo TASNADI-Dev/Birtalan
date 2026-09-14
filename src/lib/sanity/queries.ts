@@ -118,6 +118,10 @@ export type ContactPage = {
   intro: PortableTextBlock[] | null;
 };
 
+export type PrivacyPage = {
+  content: PortableTextBlock[] | null;
+};
+
 export type TemplatePageLink = {
   href: string;
   label: string;
@@ -365,6 +369,22 @@ const CONTACT_PAGE_QUERY = /* groq */ `
 export async function getContactPage(): Promise<ContactPage | null> {
   try {
     return await sanityClient.fetch<ContactPage | null>(CONTACT_PAGE_QUERY);
+  } catch {
+    return null;
+  }
+}
+
+const PRIVACY_PAGE_QUERY = /* groq */ `
+  *[_id == "privacyPage"][0]{
+    content[]{
+      ${PORTABLE_TEXT_PROJECTION}
+    }
+  }
+`;
+
+export async function getPrivacyPage(): Promise<PrivacyPage | null> {
+  try {
+    return await sanityClient.fetch<PrivacyPage | null>(PRIVACY_PAGE_QUERY);
   } catch {
     return null;
   }

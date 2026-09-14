@@ -34,7 +34,15 @@ export function renderPortableTextHtml(
       continue;
     }
 
-    html.push(`<p>${renderChildren(block)}</p>`);
+    const tag =
+      block.style === 'h2'
+        ? 'h2'
+        : block.style === 'h3'
+          ? 'h3'
+          : block.style === 'h4'
+            ? 'h4'
+            : 'p';
+    html.push(`<${tag}>${renderChildren(block)}</${tag}>`);
     index += 1;
   }
 

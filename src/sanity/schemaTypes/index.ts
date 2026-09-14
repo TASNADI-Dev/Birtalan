@@ -9,6 +9,7 @@ import { ctaSectionBlockType } from './blocks/ctaSectionBlockType';
 import { testimonialSectionBlockType } from './blocks/testimonialSectionBlockType';
 import { aboutPageType } from './documents/aboutPageType';
 import { contactPageType } from './documents/contactPageType';
+import { privacyPageType } from './documents/privacyPageType';
 import { galleryPageType } from './documents/galleryPageType';
 import { globalContactsType } from './documents/globalContactsType';
 import { globalCtaType } from './documents/globalCtaType';
@@ -22,6 +23,7 @@ export const schemaTypes = [
   homePageType,
   aboutPageType,
   contactPageType,
+  privacyPageType,
   galleryPageType,
   globalContactsType,
   globalCtaType,

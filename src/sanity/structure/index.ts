@@ -3,6 +3,7 @@ import { BoltIcon } from '@sanity/icons/Bolt';
 import { CommentIcon } from '@sanity/icons/Comment';
 import { EnvelopeIcon } from '@sanity/icons/Envelope';
 import { HomeIcon } from '@sanity/icons/Home';
+import { LockIcon } from '@sanity/icons/Lock';
 import { ImagesIcon } from '@sanity/icons/Images';
 import { UsersIcon } from '@sanity/icons/Users';
 import type { StructureResolver } from 'sanity/structure';
@@ -12,6 +13,7 @@ const SINGLETONS = [
   'aboutPage',
   'galleryPage',
   'contactPage',
+  'privacyPage',
   'testimonials',
   'globalContacts',
   'globalCta',
@@ -21,6 +23,7 @@ const STRUCTURED_TYPES = [
   'aboutPage',
   'galleryPage',
   'contactPage',
+  'privacyPage',
   'testimonials',
   'globalContacts',
   'globalCta',
@@ -68,6 +71,15 @@ export const structure: StructureResolver = (S) =>
             .schemaType('contactPage')
             .documentId('contactPage')
             .title('Kapcsolat'),
+        ),
+      S.listItem()
+        .title('Adatvédelmi nyilatkozat')
+        .icon(LockIcon)
+        .child(
+          S.document()
+            .schemaType('privacyPage')
+            .documentId('privacyPage')
+            .title('Adatvédelmi nyilatkozat'),
         ),
       S.listItem()
         .title('Elérhetőségek')

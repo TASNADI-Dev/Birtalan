@@ -9,6 +9,7 @@ const SINGLETON_TYPES = [
   'aboutPage',
   'galleryPage',
   'contactPage',
+  'privacyPage',
   'testimonials',
   'globalContacts',
   'globalCta',

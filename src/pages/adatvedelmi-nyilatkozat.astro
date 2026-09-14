@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getPrivacyPage } from '../lib/sanity/queries';
+import { renderPortableTextHtml } from '../lib/sanity/renderPortableText';
+
+const privacyPage = await getPrivacyPage();
+const contentHtml = renderPortableTextHtml(privacyPage?.content ?? undefined);
+---
+
+<Layout title="Adatvédelmi nyilatkozat">
+  <section class="mx-auto w-full max-w-[1440px] px-6 py-20 max-md:py-12">
+    <div class="max-w-[50rem] text-left">
+      <h1
+        class="mb-8 font-sans text-[3.5rem] font-light leading-[1.1] tracking-[-0.03em] text-mandalay-950 max-md:mb-6 max-md:text-[2.5rem]"
+      >
+        Adatvédelmi nyilatkozat
+      </h1>
+      {
+        contentHtml && (
+          <div
+            class="flex flex-col gap-4 text-[0.875rem] leading-[1.6] tracking-[-0.01em] text-mako-700 [&_a]:text-highlight [&_a]:underline [&_a]:underline-offset-2 [&_h2]:font-sans [&_h2]:text-[1.25rem] [&_h2]:font-medium [&_h2]:leading-[1.4] [&_h2]:tracking-[-0.02em] [&_h2]:text-mandalay-950 [&_h3]:font-sans [&_h3]:text-[1rem] [&_h3]:font-medium [&_h3]:leading-[1.4] [&_h3]:text-mandalay-950 [&_h4]:font-sans [&_h4]:text-[0.875rem] [&_h4]:font-medium [&_h4]:leading-[1.4] [&_h4]:text-mandalay-950 [&_ol]:list-decimal [&_ol]:pl-5 [&_ul]:list-disc [&_ul]:pl-5"
+            set:html={contentHtml}
+          />
+        )
+      }
+    </div>
+  </section>
+</Layout>

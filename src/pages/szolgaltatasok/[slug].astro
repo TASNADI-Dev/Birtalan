@@ -1,10 +1,10 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import GallerySection from "../components/blocks/GallerySection.astro";
-import PageSections from "../components/blocks/PageSections.astro";
-import PriceListSection from "../components/blocks/PriceListSection.astro";
-import TemplateHeroSection from "../components/blocks/TemplateHeroSection.astro";
-import { getTemplatePagePaths } from "../lib/sanity/queries";
+import Layout from "../../layouts/Layout.astro";
+import GallerySection from "../../components/blocks/GallerySection.astro";
+import PageSections from "../../components/blocks/PageSections.astro";
+import PriceListSection from "../../components/blocks/PriceListSection.astro";
+import TemplateHeroSection from "../../components/blocks/TemplateHeroSection.astro";
+import { getTemplatePagePaths } from "../../lib/sanity/queries";
 
 export async function getStaticPaths() {
   const pages = await getTemplatePagePaths();

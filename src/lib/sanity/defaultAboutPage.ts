@@ -6,7 +6,7 @@ export const defaultAboutSections: PageSection[] = [
   {
     _type: 'pageHeroSection',
     _key: 'default-about-hero',
-    heading: 'Rólunk',
+    heading: 'Rólam',
     description: [
       {
         _type: 'block',

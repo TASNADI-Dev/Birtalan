@@ -2,6 +2,9 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
 import { BoltIcon } from '@sanity/icons/Bolt';
 
+export const GLOBAL_CTA_INSTRUCTIONS =
+  'Ez egy globális beállítás: az itt megadott felhívás minden olyan oldalon megjelenik, ahová a CTA szekciót hozzáadod. A Főoldalon, a Rólam oldalon és a sablon oldalakon tudod beszúrni a szekciót. Ha itt módosítasz, minden érintett oldal automatikusan frissül.';
+
 export const globalCtaType = defineType({
   name: 'globalCta',
   title: 'CTA szekció',
@@ -14,6 +17,14 @@ export const globalCtaType = defineType({
       type: 'string',
       hidden: true,
       initialValue: 'CTA szekció',
+    }),
+    defineField({
+      name: 'instructions',
+      title: 'Útmutató',
+      type: 'text',
+      rows: 4,
+      readOnly: true,
+      initialValue: GLOBAL_CTA_INSTRUCTIONS,
     }),
     defineField({
       name: 'heading',

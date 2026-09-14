@@ -25,7 +25,7 @@ export const testimonialSectionBlockType = defineType({
   preview: {
     prepare() {
       return {
-        title: 'Rólunk mondták',
+        title: 'Rólam mondták',
         subtitle: 'Megosztott vélemények',
       };
     },

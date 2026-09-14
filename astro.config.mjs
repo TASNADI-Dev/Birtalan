@@ -20,6 +20,11 @@ if (!projectId) {
 
 // https://astro.build/config
 export default defineConfig({
+  redirects: {
+    '/rolunk': '/rolam',
+    '/kez-es-labapolas': '/szolgaltatasok/kez-es-labapolas',
+  },
+
   vite: {
     plugins: [tailwindcss()],
     // Pre-bundle Studio deps so Vite doesn't re-optimize mid-session

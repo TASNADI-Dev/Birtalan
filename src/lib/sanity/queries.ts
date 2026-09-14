@@ -2,6 +2,7 @@
 import { sanityClient } from 'sanity:client';
 import { asset } from '../assets';
 import { defaultTemplatePages } from './defaultTemplatePages';
+import { templatePageHref, templatePageSlug } from './templatePagePath';
 
 export type PortableTextSpan = {
   _type: 'span';
@@ -270,7 +271,7 @@ const HOME_PAGE_QUERY = /* groq */ `
         heading,
         paragraph,
         "buttonHref": select(
-          defined(buttonLink->slug.current) => "/" + buttonLink->slug.current,
+          defined(buttonLink->slug.current) => buttonLink->slug.current,
           null
         )
       },
@@ -289,7 +290,17 @@ const HOME_PAGE_QUERY = /* groq */ `
 
 export async function getHomePage(): Promise<HomePage | null> {
   try {
-    return await sanityClient.fetch<HomePage | null>(HOME_PAGE_QUERY);
+    const page = await sanityClient.fetch<HomePage | null>(HOME_PAGE_QUERY);
+    if (!page?.sections) return page;
+
+    return {
+      ...page,
+      sections: page.sections.map((section) =>
+        section._type === 'splitSection' && section.buttonHref
+          ? { ...section, buttonHref: templatePageHref(section.buttonHref) }
+          : section,
+      ),
+    };
   } catch {
     return null;
   }
@@ -376,7 +387,7 @@ export async function getGlobalContacts(): Promise<ContactDetails | null> {
 const TEMPLATE_PAGES_QUERY = /* groq */ `
   *[_type == "templatePage" && defined(slug.current)] | order(_createdAt asc) {
     "label": title,
-    "href": "/" + slug.current
+    "slug": slug.current
   }
 `;
 
@@ -438,7 +449,7 @@ function withHeroDefaults(page: FetchedTemplatePage): TemplatePage {
 
   return {
     title: page.title,
-    slug: page.slug,
+    slug: templatePageSlug(page.slug),
     hero: {
       heading: page.hero?.heading || page.title,
       description:
@@ -466,7 +477,7 @@ function getDefaultTemplatePagePaths(): TemplatePage[] {
   return defaultTemplatePages.map((page) =>
     withHeroDefaults({
       title: page.label,
-      slug: page.href.slice(1),
+      slug: templatePageSlug(page.href),
       hero: null,
     }),
   );
@@ -475,8 +486,15 @@ function getDefaultTemplatePagePaths(): TemplatePage[] {
 export async function getTemplatePages(): Promise<TemplatePageLink[]> {
   try {
     const pages =
-      await sanityClient.fetch<TemplatePageLink[]>(TEMPLATE_PAGES_QUERY);
-    return pages?.length ? pages : defaultTemplatePages;
+      await sanityClient.fetch<{ label: string; slug: string }[]>(
+        TEMPLATE_PAGES_QUERY,
+      );
+    return pages?.length
+      ? pages.map((page) => ({
+          label: page.label,
+          href: templatePageHref(page.slug),
+        }))
+      : defaultTemplatePages;
   } catch {
     return defaultTemplatePages;
   }
@@ -509,7 +527,7 @@ const GALLERY_PAGE_TABS_QUERY = /* groq */ `
 function getDefaultGalleryPageTabs(): GalleryPageTab[] {
   return defaultTemplatePages.map((page) => ({
     title: page.label,
-    slug: page.href.slice(1),
+    slug: templatePageSlug(page.href),
     images: [],
   }));
 }
@@ -518,7 +536,12 @@ export async function getGalleryPageTabs(): Promise<GalleryPageTab[]> {
   try {
     const tabs =
       await sanityClient.fetch<GalleryPageTab[]>(GALLERY_PAGE_TABS_QUERY);
-    return tabs?.length ? tabs : getDefaultGalleryPageTabs();
+    return tabs?.length
+      ? tabs.map((tab) => ({
+          ...tab,
+          slug: templatePageSlug(tab.slug),
+        }))
+      : getDefaultGalleryPageTabs();
   } catch {
     return getDefaultGalleryPageTabs();
   }

@@ -4,7 +4,7 @@ import { UsersIcon } from '@sanity/icons/Users';
 
 export const aboutPageType = defineType({
   name: 'aboutPage',
-  title: 'Rólunk',
+  title: 'Rólam',
   type: 'document',
   icon: UsersIcon,
   fields: [
@@ -13,7 +13,7 @@ export const aboutPageType = defineType({
       title: 'Cím',
       type: 'string',
       hidden: true,
-      initialValue: 'Rólunk',
+      initialValue: 'Rólam',
     }),
     defineField({
       name: 'sections',
@@ -28,7 +28,7 @@ export const aboutPageType = defineType({
   ],
   preview: {
     prepare() {
-      return { title: 'Rólunk' };
+      return { title: 'Rólam' };
     },
   },
 });

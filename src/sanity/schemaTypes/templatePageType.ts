@@ -1,6 +1,11 @@
 // Template pages linked from navigation and split section buttons.
 import { defineArrayMember, defineField, defineType } from 'sanity';
 import { DocumentIcon } from '@sanity/icons/Document';
+import {
+  TEMPLATE_PAGE_FOLDER,
+  slugifyTemplatePage,
+  templatePageHref,
+} from '../../lib/sanity/templatePagePath';
 
 export const templatePageType = defineType({
   name: 'templatePage',
@@ -16,12 +21,26 @@ export const templatePageType = defineType({
     }),
     defineField({
       name: 'slug',
-      title: 'URL útvonal',
-      description:
-        'Relatív útvonal perjel nélkül, pl. szolgaltatasok/kozmetika',
+      title: 'Slug',
+      description: `Perjel nélkül, pl. kozmetika. Az oldal címe automatikusan /${TEMPLATE_PAGE_FOLDER}/ + slug lesz.`,
       type: 'slug',
-      options: { source: 'title' },
-      validation: (rule) => rule.required(),
+      options: {
+        source: 'title',
+        maxLength: 96,
+        slugify: slugifyTemplatePage,
+      },
+      validation: (rule) =>
+        rule.required().custom((value) => {
+          const current = value?.current?.trim();
+          if (!current) return 'A slug megadása kötelező';
+          if (current.includes('/')) {
+            return 'A slug ne tartalmazzon perjelet';
+          }
+          if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(current)) {
+            return 'Csak kisbetűk, számok és kötőjelek használhatók';
+          }
+          return true;
+        }),
     }),
     defineField({
       name: 'hero',
@@ -96,7 +115,7 @@ export const templatePageType = defineType({
 
       return {
         title,
-        subtitle: [slug ? `/${slug}` : undefined, galleryLabel]
+        subtitle: [slug ? templatePageHref(slug) : undefined, galleryLabel]
           .filter(Boolean)
           .join(' · '),
         media,

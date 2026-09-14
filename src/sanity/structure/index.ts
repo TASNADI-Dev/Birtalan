@@ -41,13 +41,13 @@ export const structure: StructureResolver = (S) =>
             .title('Főoldal'),
         ),
       S.listItem()
-        .title('Rólunk')
+        .title('Rólam')
         .icon(UsersIcon)
         .child(
           S.document()
             .schemaType('aboutPage')
             .documentId('aboutPage')
-            .title('Rólunk'),
+            .title('Rólam'),
         ),
       S.listItem()
         .id('galleryPage')
@@ -85,7 +85,7 @@ export const structure: StructureResolver = (S) =>
           S.document()
             .schemaType('testimonials')
             .documentId('testimonials')
-            .title('Rólunk mondták'),
+            .title('Rólam mondták'),
         ),
       S.listItem()
         .title('CTA szekció')

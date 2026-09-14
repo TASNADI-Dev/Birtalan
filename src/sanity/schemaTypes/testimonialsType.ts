@@ -2,6 +2,9 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
 import { CommentIcon } from '@sanity/icons/Comment';
 
+export const TESTIMONIALS_INSTRUCTIONS =
+  'Ez egy globális beállítás: az itt megadott vélemények minden olyan oldalon megjelennek, ahová a Vélemények szekciót hozzáadod. A Főoldalon, a Rólam oldalon és a sablon oldalakon tudod beszúrni a szekciót. Ha itt módosítasz, minden érintett oldal automatikusan frissül.';
+
 export const testimonialsType = defineType({
   name: 'testimonials',
   title: 'Vélemények',
@@ -13,7 +16,15 @@ export const testimonialsType = defineType({
       title: 'Cím',
       type: 'string',
       hidden: true,
-      initialValue: 'Rólunk mondták',
+      initialValue: 'Rólam mondták',
+    }),
+    defineField({
+      name: 'instructions',
+      title: 'Útmutató',
+      type: 'text',
+      rows: 4,
+      readOnly: true,
+      initialValue: TESTIMONIALS_INSTRUCTIONS,
     }),
     defineField({
       name: 'items',
@@ -64,7 +75,7 @@ export const testimonialsType = defineType({
     prepare({ items }) {
       const count = Array.isArray(items) ? items.length : 0;
       return {
-        title: 'Rólunk mondták',
+        title: 'Rólam mondták',
         subtitle: `${count} vélemény`,
       };
     },

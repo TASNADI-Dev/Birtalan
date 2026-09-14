@@ -74,7 +74,7 @@ export const templatePageType = defineType({
       title: 'Galéria képek',
       type: 'array',
       description:
-        'Tetszőleges számú kép feltöltése. Lekérdezéskor minden kép megkapja az oldal címét és URL útvonalát.',
+        'Tetszőleges számú kép feltöltése. Ezek a képek jelennek meg a Galéria oldalon is.',
       options: {
         layout: 'grid',
       },

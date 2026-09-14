@@ -20,7 +20,7 @@ alwaysApply: true
 
 ## Assets
 
-* All image assets are hosted at https://pub-91ada33d739146bdafc3a2ad87c11ea2.r2.dev. Import `asset()` from `src/lib/assets.ts` to build image URLs. Do not hardcode the CDN base in components.
+* All image assets are hosted at https://assets.biembeauty.hu/. Import `asset()` from `src/lib/assets.ts` to build image URLs. Do not hardcode the CDN base in components.
 
 ## Responsive & Mobile-First Design
 

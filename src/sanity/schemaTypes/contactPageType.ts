@@ -13,7 +13,7 @@ export const contactPageType = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Cím',
       type: 'string',
       hidden: true,
       initialValue: 'Kapcsolat',
@@ -28,21 +28,21 @@ export const contactPageType = defineType({
     }),
     defineField({
       name: 'intro',
-      title: 'Intro',
-      description: 'Rich text shown below the heading on the contact page.',
+      title: 'Bevezető',
+      description: 'A Kapcsolat oldalon a főcím alatt megjelenő formázott szöveg.',
       type: 'array',
       of: [
         defineArrayMember({
           type: 'block',
-          styles: [{ title: 'Normal', value: 'normal' }],
+          styles: [{ title: 'Normál', value: 'normal' }],
           lists: [
-            { title: 'Bullet', value: 'bullet' },
-            { title: 'Number', value: 'number' },
+            { title: 'Felsorolás', value: 'bullet' },
+            { title: 'Számozott', value: 'number' },
           ],
           marks: {
             decorators: [
-              { title: 'Strong', value: 'strong' },
-              { title: 'Emphasis', value: 'em' },
+              { title: 'Félkövér', value: 'strong' },
+              { title: 'Kiemelés', value: 'em' },
             ],
             annotations: [
               defineArrayMember({

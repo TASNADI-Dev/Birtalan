@@ -10,14 +10,14 @@ export const aboutPageType = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Cím',
       type: 'string',
       hidden: true,
       initialValue: 'Rólunk',
     }),
     defineField({
       name: 'sections',
-      title: 'Sections',
+      title: 'Szekciók',
       type: 'array',
       of: [
         defineArrayMember({ type: 'pageHeroSection' }),

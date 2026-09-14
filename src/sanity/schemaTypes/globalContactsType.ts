@@ -13,7 +13,7 @@ export const globalContactsType = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Cím',
       type: 'string',
       hidden: true,
       initialValue: 'Elérhetőségek',
@@ -28,22 +28,24 @@ export const globalContactsType = defineType({
     }),
     defineField({
       name: 'phone',
-      title: 'Phone',
+      title: 'Telefon',
       type: 'string',
-      description: 'Phone number shown on the contact page. Used as the call link.',
+      description:
+        'A Kapcsolat oldalon megjelenő telefonszám. Hívás linkként is használható.',
     }),
     defineField({
       name: 'email',
-      title: 'Email',
+      title: 'E-mail',
       type: 'string',
-      description: 'Email address shown on the contact page. Used as the mail link.',
+      description:
+        'A Kapcsolat oldalon megjelenő e-mail cím. Levél linkként is használható.',
       validation: (rule) =>
         rule.custom((value) => {
           if (!value) return true;
           const address = value.replace(/^mailto:/i, '');
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)
             ? true
-            : 'Enter a valid email address';
+            : 'Adj meg érvényes e-mail címet';
         }),
     }),
     defineField({
@@ -51,7 +53,7 @@ export const globalContactsType = defineType({
       title: 'TikTok',
       type: 'url',
       description:
-        'TikTok profile URL. Shown on the contact page and as an icon in the footer.',
+        'TikTok profil URL. Megjelenik a Kapcsolat oldalon és ikonként a láblécben.',
       validation: (rule) =>
         rule.uri({
           scheme: ['http', 'https'],
@@ -62,7 +64,7 @@ export const globalContactsType = defineType({
       title: 'Instagram',
       type: 'url',
       description:
-        'Instagram profile URL. Shown on the contact page and as an icon in the footer.',
+        'Instagram profil URL. Megjelenik a Kapcsolat oldalon és ikonként a láblécben.',
       validation: (rule) =>
         rule.uri({
           scheme: ['http', 'https'],
@@ -73,7 +75,7 @@ export const globalContactsType = defineType({
       title: 'Facebook',
       type: 'url',
       description:
-        'Facebook page URL. Shown as “BI-EM Beauty” on the contact page and as an icon in the footer.',
+        'Facebook oldal URL. A Kapcsolat oldalon „BI-EM Beauty” néven jelenik meg, a láblécben pedig ikonként.',
       validation: (rule) =>
         rule.uri({
           scheme: ['http', 'https'],

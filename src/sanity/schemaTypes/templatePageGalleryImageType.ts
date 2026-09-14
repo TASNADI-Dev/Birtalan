@@ -4,19 +4,19 @@ import { ImageIcon } from '@sanity/icons/Image';
 
 export const templatePageGalleryImageType = defineType({
   name: 'templatePageGalleryImage',
-  title: 'Gallery image',
+  title: 'Galériakép',
   type: 'object',
   icon: ImageIcon,
   fields: [
     defineField({
       name: 'image',
-      title: 'Image',
+      title: 'Kép',
       type: 'image',
       options: { hotspot: true },
       fields: [
         defineField({
           name: 'alt',
-          title: 'Alt text',
+          title: 'Alternatív szöveg',
           type: 'string',
         }),
       ],
@@ -30,7 +30,7 @@ export const templatePageGalleryImageType = defineType({
     },
     prepare({ media, alt }) {
       return {
-        title: alt || 'Gallery image',
+        title: alt || 'Galériakép',
         media,
       };
     },

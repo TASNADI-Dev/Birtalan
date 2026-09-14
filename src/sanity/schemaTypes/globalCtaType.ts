@@ -10,26 +10,26 @@ export const globalCtaType = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Cím',
       type: 'string',
       hidden: true,
       initialValue: 'CTA szekció',
     }),
     defineField({
       name: 'heading',
-      title: 'Heading',
+      title: 'Főcím',
       description:
-        'Select text and use the “Emphasis” control to apply the accent color.',
+        'Jelöld ki a szöveget, majd a „Kiemelés” vezérlővel alkalmazd a kiemelő színt.',
       type: 'array',
       of: [
         defineArrayMember({
           type: 'block',
-          styles: [{ title: 'Normal', value: 'normal' }],
+          styles: [{ title: 'Normál', value: 'normal' }],
           lists: [],
           marks: {
             decorators: [
-              { title: 'Strong', value: 'strong' },
-              { title: 'Emphasis', value: 'emphasis' },
+              { title: 'Félkövér', value: 'strong' },
+              { title: 'Kiemelés', value: 'emphasis' },
             ],
             annotations: [],
           },
@@ -39,7 +39,7 @@ export const globalCtaType = defineType({
     }),
     defineField({
       name: 'buttonLabel',
-      title: 'Button label',
+      title: 'Gomb szövege',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
@@ -51,7 +51,7 @@ export const globalCtaType = defineType({
     prepare({ buttonLabel }) {
       return {
         title: 'CTA szekció',
-        subtitle: buttonLabel || 'Shared call to action',
+        subtitle: buttonLabel || 'Megosztott felhívás',
       };
     },
   },

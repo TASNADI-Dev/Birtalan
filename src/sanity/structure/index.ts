@@ -29,7 +29,7 @@ const STRUCTURED_TYPES = [
 
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title('Content')
+    .title('Tartalom')
     .items([
       S.listItem()
         .title('Főoldal')

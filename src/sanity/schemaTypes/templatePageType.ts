@@ -10,14 +10,15 @@ export const templatePageType = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Cím',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
-      title: 'URL path',
-      description: 'Relative path without leading slash, e.g. szolgaltatasok/kozmetika',
+      title: 'URL útvonal',
+      description:
+        'Relatív útvonal perjel nélkül, pl. szolgaltatasok/kozmetika',
       type: 'slug',
       options: { source: 'title' },
       validation: (rule) => rule.required(),
@@ -30,26 +31,26 @@ export const templatePageType = defineType({
       fields: [
         defineField({
           name: 'heading',
-          title: 'Heading',
+          title: 'Főcím',
           type: 'string',
           validation: (rule) => rule.required(),
         }),
         defineField({
           name: 'description',
-          title: 'Description',
+          title: 'Leírás',
           type: 'text',
           rows: 4,
           validation: (rule) => rule.required(),
         }),
         defineField({
           name: 'image',
-          title: 'Image',
+          title: 'Kép',
           type: 'image',
           options: { hotspot: true },
           fields: [
             defineField({
               name: 'alt',
-              title: 'Alt text',
+              title: 'Alternatív szöveg',
               type: 'string',
             }),
           ],
@@ -65,7 +66,7 @@ export const templatePageType = defineType({
     }),
     defineField({
       name: 'sections',
-      title: 'Sections',
+      title: 'Szekciók',
       type: 'sharedSections',
     }),
     defineField({
@@ -73,7 +74,7 @@ export const templatePageType = defineType({
       title: 'Galéria képek',
       type: 'array',
       description:
-        'Add as many images as needed. When queried, each image is tagged with this page title and URL path.',
+        'Tetszőleges számú kép feltöltése. Lekérdezéskor minden kép megkapja az oldal címét és URL útvonalát.',
       options: {
         layout: 'grid',
       },
@@ -90,7 +91,7 @@ export const templatePageType = defineType({
     prepare({ title, slug, media, imageCount }) {
       const galleryLabel =
         typeof imageCount === 'number' && imageCount > 0
-          ? `${imageCount} gallery image${imageCount === 1 ? '' : 's'}`
+          ? `${imageCount} galériakép`
           : undefined;
 
       return {

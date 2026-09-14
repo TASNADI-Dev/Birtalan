@@ -7,21 +7,21 @@ const GALLERY_IMAGE_COUNT = 8;
 
 export const gallerySectionBlockType = defineType({
   name: 'gallerySection',
-  title: 'Gallery section',
+  title: 'Galéria szekció',
   type: 'object',
   icon: ImagesIcon,
   fields: [
     defineField({
       name: 'heading',
-      title: 'Heading',
+      title: 'Főcím',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'images',
-      title: 'Gallery images',
+      title: 'Galéria képek',
       type: 'array',
-      description: `Exactly ${GALLERY_IMAGE_COUNT} images required.`,
+      description: `Pontosan ${GALLERY_IMAGE_COUNT} kép szükséges.`,
       components: {
         input: ArrayWithMaxItems,
       },
@@ -35,14 +35,14 @@ export const gallerySectionBlockType = defineType({
           fields: [
             defineField({
               name: 'image',
-              title: 'Image',
+              title: 'Kép',
               type: 'image',
               options: { hotspot: true },
               validation: (rule) => rule.required(),
             }),
             defineField({
               name: 'alt',
-              title: 'Alt text',
+              title: 'Alternatív szöveg',
               type: 'string',
             }),
           ],
@@ -56,7 +56,7 @@ export const gallerySectionBlockType = defineType({
           .required()
           .min(GALLERY_IMAGE_COUNT)
           .max(GALLERY_IMAGE_COUNT)
-          .error(`Exactly ${GALLERY_IMAGE_COUNT} images are required.`),
+          .error(`Pontosan ${GALLERY_IMAGE_COUNT} kép szükséges.`),
     }),
   ],
   preview: {
@@ -66,8 +66,8 @@ export const gallerySectionBlockType = defineType({
     },
     prepare({ heading, image }) {
       return {
-        title: heading || 'Gallery section',
-        subtitle: '8 images',
+        title: heading || 'Galéria szekció',
+        subtitle: '8 kép',
         media: image,
       };
     },

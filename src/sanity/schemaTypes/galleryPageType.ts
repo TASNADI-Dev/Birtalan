@@ -13,7 +13,7 @@ export const galleryPageType = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Cím',
       type: 'string',
       hidden: true,
       initialValue: 'Galéria',

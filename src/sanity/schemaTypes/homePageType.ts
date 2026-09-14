@@ -10,14 +10,14 @@ export const homePageType = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Cím',
       type: 'string',
       hidden: true,
       initialValue: 'Főoldal',
     }),
     defineField({
       name: 'sections',
-      title: 'Sections',
+      title: 'Szekciók',
       type: 'pageBuilder',
     }),
   ],

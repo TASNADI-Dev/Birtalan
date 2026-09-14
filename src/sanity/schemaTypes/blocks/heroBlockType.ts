@@ -10,27 +10,27 @@ export const heroBlockType = defineType({
   fields: [
     defineField({
       name: 'eyebrow',
-      title: 'Eyebrow tags',
-      description: 'Short labels shown above the heading, separated by dots.',
+      title: 'Címkék',
+      description: 'Rövid feliratok a főcím felett, pontokkal elválasztva.',
       type: 'array',
       of: [defineArrayMember({ type: 'string' })],
       validation: (rule) => rule.required().min(1),
     }),
     defineField({
       name: 'heading',
-      title: 'Heading',
+      title: 'Főcím',
       description:
-        'Select text and use the “Emphasis” control to apply the accent color.',
+        'Jelöld ki a szöveget, majd a „Kiemelés” vezérlővel alkalmazd a kiemelő színt.',
       type: 'array',
       of: [
         defineArrayMember({
           type: 'block',
-          styles: [{ title: 'Normal', value: 'normal' }],
+          styles: [{ title: 'Normál', value: 'normal' }],
           lists: [],
           marks: {
             decorators: [
-              { title: 'Strong', value: 'strong' },
-              { title: 'Emphasis', value: 'emphasis' },
+              { title: 'Félkövér', value: 'strong' },
+              { title: 'Kiemelés', value: 'emphasis' },
             ],
             annotations: [],
           },
@@ -40,14 +40,14 @@ export const heroBlockType = defineType({
     }),
     defineField({
       name: 'description',
-      title: 'Description',
+      title: 'Leírás',
       type: 'text',
       rows: 4,
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'buttonLabel',
-      title: 'Button label',
+      title: 'Gomb szövege',
       type: 'string',
       validation: (rule) => rule.required(),
     }),

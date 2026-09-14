@@ -10,16 +10,16 @@ export const testimonialsType = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Cím',
       type: 'string',
       hidden: true,
       initialValue: 'Rólunk mondták',
     }),
     defineField({
       name: 'items',
-      title: 'Testimonials',
+      title: 'Vélemények',
       description:
-        'Add testimonials in the order they should appear. The site lays them out in three columns.',
+        'Add hozzá a véleményeket a megjelenési sorrendben. Az oldal három oszlopban jeleníti meg őket.',
       type: 'array',
       of: [
         defineArrayMember({
@@ -28,14 +28,14 @@ export const testimonialsType = defineType({
           fields: [
             defineField({
               name: 'quote',
-              title: 'Quote',
+              title: 'Idézet',
               type: 'text',
               rows: 4,
               validation: (rule) => rule.required(),
             }),
             defineField({
               name: 'name',
-              title: 'Name',
+              title: 'Név',
               type: 'string',
               validation: (rule) => rule.required(),
             }),
@@ -47,7 +47,7 @@ export const testimonialsType = defineType({
             },
             prepare({ quote, name }) {
               return {
-                title: name || 'Testimonial',
+                title: name || 'Vélemény',
                 subtitle: quote,
               };
             },
@@ -65,7 +65,7 @@ export const testimonialsType = defineType({
       const count = Array.isArray(items) ? items.length : 0;
       return {
         title: 'Rólunk mondták',
-        subtitle: `${count} testimonial${count === 1 ? '' : 's'}`,
+        subtitle: `${count} vélemény`,
       };
     },
   },

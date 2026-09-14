@@ -10,9 +10,9 @@ export const ctaSectionBlockType = defineType({
   fields: [
     defineField({
       name: 'ctaSet',
-      title: 'CTA content',
+      title: 'CTA tartalom',
       description:
-        'Choose the shared CTA document. Updating that document updates every page that uses it.',
+        'Válaszd ki a megosztott CTA dokumentumot. Annak módosítása minden oldalon frissíti a felhívást.',
       type: 'reference',
       to: [{ type: 'globalCta' }],
       initialValue: {
@@ -26,7 +26,7 @@ export const ctaSectionBlockType = defineType({
     prepare() {
       return {
         title: 'CTA',
-        subtitle: 'Shared call to action',
+        subtitle: 'Megosztott felhívás',
       };
     },
   },

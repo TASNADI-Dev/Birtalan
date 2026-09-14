@@ -3,7 +3,7 @@ import { defineArrayMember, defineType } from 'sanity';
 
 export const sharedSectionsType = defineType({
   name: 'sharedSections',
-  title: 'Page sections',
+  title: 'Oldal szekciók',
   type: 'array',
   of: [
     defineArrayMember({ type: 'testimonialSection' }),

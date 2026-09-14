@@ -4,15 +4,15 @@ import { CommentIcon } from '@sanity/icons/Comment';
 
 export const testimonialSectionBlockType = defineType({
   name: 'testimonialSection',
-  title: 'Testimonials',
+  title: 'Vélemények',
   type: 'object',
   icon: CommentIcon,
   fields: [
     defineField({
       name: 'testimonialSet',
-      title: 'Testimonials',
+      title: 'Vélemények',
       description:
-        'Choose the shared testimonials document. Updating that document updates every page that uses it.',
+        'Válaszd ki a megosztott vélemények dokumentumot. Annak módosítása minden oldalon frissíti a véleményeket.',
       type: 'reference',
       to: [{ type: 'testimonials' }],
       initialValue: {
@@ -26,7 +26,7 @@ export const testimonialSectionBlockType = defineType({
     prepare() {
       return {
         title: 'Rólunk mondták',
-        subtitle: 'Shared testimonials',
+        subtitle: 'Megosztott vélemények',
       };
     },
   },

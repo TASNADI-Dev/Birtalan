@@ -4,33 +4,33 @@ import { ImageIcon } from '@sanity/icons/Image';
 
 export const pageHeroSectionBlockType = defineType({
   name: 'pageHeroSection',
-  title: 'Page hero',
+  title: 'Oldal hero',
   type: 'object',
   icon: ImageIcon,
   fields: [
     defineField({
       name: 'heading',
-      title: 'Heading',
+      title: 'Főcím',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'description',
-      title: 'Paragraph',
-      description: 'Rich text shown below the heading.',
+      title: 'Bekezdés',
+      description: 'A főcím alatt megjelenő formázott szöveg.',
       type: 'array',
       of: [
         defineArrayMember({
           type: 'block',
-          styles: [{ title: 'Normal', value: 'normal' }],
+          styles: [{ title: 'Normál', value: 'normal' }],
           lists: [
-            { title: 'Bullet', value: 'bullet' },
-            { title: 'Number', value: 'number' },
+            { title: 'Felsorolás', value: 'bullet' },
+            { title: 'Számozott', value: 'number' },
           ],
           marks: {
             decorators: [
-              { title: 'Strong', value: 'strong' },
-              { title: 'Emphasis', value: 'em' },
+              { title: 'Félkövér', value: 'strong' },
+              { title: 'Kiemelés', value: 'em' },
             ],
             annotations: [
               defineArrayMember({
@@ -58,13 +58,13 @@ export const pageHeroSectionBlockType = defineType({
     }),
     defineField({
       name: 'image',
-      title: 'Image',
+      title: 'Kép',
       type: 'image',
       options: { hotspot: true },
       fields: [
         defineField({
           name: 'alt',
-          title: 'Alt text',
+          title: 'Alternatív szöveg',
           type: 'string',
         }),
       ],
@@ -84,7 +84,7 @@ export const pageHeroSectionBlockType = defineType({
           .join('') ?? '';
 
       return {
-        title: heading || 'Page hero',
+        title: heading || 'Oldal hero',
         subtitle: text,
         media,
       };

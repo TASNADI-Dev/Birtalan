@@ -4,18 +4,18 @@ import { InlineIcon } from '@sanity/icons/Inline';
 
 export const splitSectionBlockType = defineType({
   name: 'splitSection',
-  title: 'Split section',
+  title: 'Osztott szekció',
   type: 'object',
   icon: InlineIcon,
   fields: [
     defineField({
       name: 'variant',
-      title: 'Variant',
+      title: 'Elrendezés',
       type: 'string',
       options: {
         list: [
-          { title: 'Image left, text right', value: 'image-text' },
-          { title: 'Text left, image right', value: 'text-image' },
+          { title: 'Kép balra, szöveg jobbra', value: 'image-text' },
+          { title: 'Szöveg balra, kép jobbra', value: 'text-image' },
         ],
         layout: 'radio',
       },
@@ -24,32 +24,32 @@ export const splitSectionBlockType = defineType({
     }),
     defineField({
       name: 'image',
-      title: 'Image',
+      title: 'Kép',
       type: 'image',
       options: { hotspot: true },
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'alt',
-      title: 'Alt text',
+      title: 'Alternatív szöveg',
       type: 'string',
     }),
     defineField({
       name: 'heading',
-      title: 'Heading',
+      title: 'Főcím',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'paragraph',
-      title: 'Paragraph',
+      title: 'Bekezdés',
       type: 'text',
       rows: 4,
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'buttonLink',
-      title: 'Button link',
+      title: 'Gomb link',
       type: 'reference',
       to: [{ type: 'templatePage' }],
       options: { disableNew: true },
@@ -64,9 +64,9 @@ export const splitSectionBlockType = defineType({
     },
     prepare({ heading, variant, media }) {
       const layout =
-        variant === 'text-image' ? 'Text · Image' : 'Image · Text';
+        variant === 'text-image' ? 'Szöveg · Kép' : 'Kép · Szöveg';
       return {
-        title: heading || 'Split section',
+        title: heading || 'Osztott szekció',
         subtitle: layout,
         media,
       };

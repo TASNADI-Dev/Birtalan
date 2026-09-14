@@ -6,9 +6,10 @@ import type { TemplatePage } from '../../lib/sanity/queries';
 
 interface Props {
   hero: TemplatePage['hero'];
+  hasPriceList?: boolean;
 }
 
-const { hero } = Astro.props;
+const { hero, hasPriceList = true } = Astro.props;
 
 const imageSrc = hero.imageUrl
   ? buildImageUrl(hero.imageUrl, { width: 800, height: 800 })
@@ -36,9 +37,13 @@ const imageSrc = hero.imageUrl
         <Button variant="large" href="/kapcsolat" arrow>
           Időpontfoglalás
         </Button>
-        <Button variant="text-only" href="#">
-          Részletek
-        </Button>
+        {
+          hasPriceList && (
+            <Button variant="text-only" href="#arlista" data-smooth-scroll>
+              Árlista
+            </Button>
+          )
+        }
       </div>
     </div>
 
@@ -56,3 +61,9 @@ const imageSrc = hero.imageUrl
     </div>
   </div>
 </section>
+
+<script>
+  import { initSmoothScroll } from '../../scripts/smooth-scroll';
+
+  initSmoothScroll();
+</script>

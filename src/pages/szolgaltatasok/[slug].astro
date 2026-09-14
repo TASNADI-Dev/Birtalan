@@ -25,7 +25,7 @@ const { title, hero, priceList, sections, gallery } = Astro.props;
 ---
 
 <Layout title={title}>
-  <TemplateHeroSection hero={hero} />
+  <TemplateHeroSection hero={hero} hasPriceList={Boolean(priceList)} />
   {gallery && <GallerySection section={gallery} />}
   {priceList && <PriceListSection priceList={priceList} />}
   {sections?.length ? <PageSections sections={sections} /> : null}

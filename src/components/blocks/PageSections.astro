@@ -24,7 +24,7 @@ const { sections } = Astro.props;
       case 'splitSection':
         return <SplitSection section={section} />;
       case 'gallerySection':
-        return <GallerySection section={section} />;
+        return <GallerySection section={section} showMoreLink />;
       case 'testimonialSection':
         return <TestimonialSection section={section} />;
       case 'ctaSection':

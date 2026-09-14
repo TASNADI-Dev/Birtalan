@@ -156,6 +156,7 @@ export type TemplatePage = {
   hero: TemplatePageHero;
   priceList?: PriceList | null;
   sections: PageSection[] | null;
+  gallery: GallerySection | null;
 };
 
 export type GalleryPageTab = {
@@ -179,6 +180,7 @@ type FetchedTemplatePage = {
     footnote?: string | null;
   } | null;
   sections?: PageSection[] | null;
+  galleryImages?: GalleryImage[] | null;
 };
 
 const TESTIMONIAL_SECTION_PROJECTION = /* groq */ `
@@ -403,9 +405,30 @@ const TEMPLATE_PAGE_PATHS_QUERY = /* groq */ `
       },
       footnote
     },
-    ${SHARED_SECTIONS_PROJECTION}
+    ${SHARED_SECTIONS_PROJECTION},
+    "galleryImages": galleryImages[]{
+      "imageUrl": image.asset->url,
+      "alt": image.alt
+    }
   }
 `;
+
+function withTemplatePageGallery(
+  galleryImages?: GalleryImage[] | null,
+): GallerySection | null {
+  const images = galleryImages?.filter((item) => item.imageUrl) ?? [];
+
+  if (!images.length) {
+    return null;
+  }
+
+  return {
+    _type: 'gallerySection',
+    _key: 'template-gallery',
+    heading: 'Galéria',
+    images,
+  };
+}
 
 function withHeroDefaults(page: FetchedTemplatePage): TemplatePage {
   const rows = page.priceList?.rows?.filter(
@@ -435,6 +458,7 @@ function withHeroDefaults(page: FetchedTemplatePage): TemplatePage {
           }
         : null,
     sections: page.sections ?? null,
+    gallery: withTemplatePageGallery(page.galleryImages),
   };
 }
 

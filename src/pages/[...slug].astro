@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import GallerySection from "../components/blocks/GallerySection.astro";
 import PageSections from "../components/blocks/PageSections.astro";
 import PriceListSection from "../components/blocks/PriceListSection.astro";
 import TemplateHeroSection from "../components/blocks/TemplateHeroSection.astro";
@@ -15,15 +16,17 @@ export async function getStaticPaths() {
       hero: page.hero,
       priceList: page.priceList,
       sections: page.sections,
+      gallery: page.gallery,
     },
   }));
 }
 
-const { title, hero, priceList, sections } = Astro.props;
+const { title, hero, priceList, sections, gallery } = Astro.props;
 ---
 
 <Layout title={title}>
   <TemplateHeroSection hero={hero} />
+  {gallery && <GallerySection section={gallery} />}
   {priceList && <PriceListSection priceList={priceList} />}
   {sections?.length ? <PageSections sections={sections} /> : null}
 </Layout>

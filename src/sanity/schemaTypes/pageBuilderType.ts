@@ -9,5 +9,6 @@ export const pageBuilderType = defineType({
     defineArrayMember({ type: 'heroSection' }),
     defineArrayMember({ type: 'splitSection' }),
     defineArrayMember({ type: 'gallerySection' }),
+    defineArrayMember({ type: 'testimonialSection' }),
   ],
 });

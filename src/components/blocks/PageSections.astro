@@ -3,6 +3,7 @@ import GallerySection from './GallerySection.astro';
 import HeroSection from './HeroSection.astro';
 import PageHeroSection from './PageHeroSection.astro';
 import SplitSection from './SplitSection.astro';
+import TestimonialSection from './TestimonialSection.astro';
 import type { PageSection } from '../../lib/sanity/queries';
 
 interface Props {
@@ -23,6 +24,8 @@ const { sections } = Astro.props;
         return <SplitSection section={section} />;
       case 'gallerySection':
         return <GallerySection section={section} />;
+      case 'testimonialSection':
+        return <TestimonialSection section={section} />;
       default:
         return null;
     }

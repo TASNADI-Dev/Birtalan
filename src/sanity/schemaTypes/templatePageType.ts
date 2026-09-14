@@ -64,6 +64,11 @@ export const templatePageType = defineType({
       type: 'priceList',
     }),
     defineField({
+      name: 'sections',
+      title: 'Sections',
+      type: 'sharedSections',
+    }),
+    defineField({
       name: 'galleryImages',
       title: 'Galéria képek',
       type: 'array',

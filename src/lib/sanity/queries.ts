@@ -71,11 +71,23 @@ export type PageHeroSection = {
   alt?: string;
 };
 
+export type Testimonial = {
+  quote: string;
+  name: string;
+};
+
+export type TestimonialSection = {
+  _type: 'testimonialSection';
+  _key: string;
+  testimonials: Testimonial[];
+};
+
 export type PageSection =
   | HeroSection
   | SplitSection
   | GallerySection
-  | PageHeroSection;
+  | PageHeroSection
+  | TestimonialSection;
 
 export type HomePage = {
   sections: PageSection[] | null;
@@ -135,6 +147,7 @@ export type TemplatePage = {
   slug: string;
   hero: TemplatePageHero;
   priceList?: PriceList | null;
+  sections: PageSection[] | null;
 };
 
 export type GalleryPageTab = {
@@ -157,7 +170,25 @@ type FetchedTemplatePage = {
     infoSections?: PriceListInfoSection[] | null;
     footnote?: string | null;
   } | null;
+  sections?: PageSection[] | null;
 };
+
+const TESTIMONIAL_SECTION_PROJECTION = /* groq */ `
+  _type == "testimonialSection" => {
+    "testimonials": testimonialSet->items[]{
+      quote,
+      name
+    }
+  }
+`;
+
+const SHARED_SECTIONS_PROJECTION = /* groq */ `
+  sections[]{
+    _key,
+    _type,
+    ${TESTIMONIAL_SECTION_PROJECTION}
+  }
+`;
 
 const DEFAULT_TEMPLATE_HERO_DESCRIPTION =
   'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...';
@@ -202,7 +233,8 @@ const HOME_PAGE_QUERY = /* groq */ `
           "imageUrl": image.asset->url,
           alt
         }
-      }
+      },
+      ${TESTIMONIAL_SECTION_PROJECTION}
     }
   }
 `;
@@ -225,7 +257,8 @@ const ABOUT_PAGE_QUERY = /* groq */ `
         description,
         "imageUrl": image.asset->url,
         "alt": image.alt
-      }
+      },
+      ${TESTIMONIAL_SECTION_PROJECTION}
     }
   }
 `;
@@ -306,7 +339,8 @@ const TEMPLATE_PAGE_PATHS_QUERY = /* groq */ `
         notes
       },
       footnote
-    }
+    },
+    ${SHARED_SECTIONS_PROJECTION}
   }
 `;
 
@@ -337,6 +371,7 @@ function withHeroDefaults(page: FetchedTemplatePage): TemplatePage {
             footnote: page.priceList?.footnote ?? undefined,
           }
         : null,
+    sections: page.sections ?? null,
   };
 }
 

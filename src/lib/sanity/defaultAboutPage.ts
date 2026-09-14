@@ -7,8 +7,21 @@ export const defaultAboutSections: PageSection[] = [
     _type: 'pageHeroSection',
     _key: 'default-about-hero',
     heading: 'Rólunk',
-    description:
-      'A BI-EM Beauty modern, nyugodt és igényes környezetben kínál arckezeléseket, szépészeti szolgáltatásokat és professzionális megoldásokat azoknak, akik valódi feltöltődésre vágynak.',
+    description: [
+      {
+        _type: 'block',
+        _key: 'default-about-hero-description',
+        style: 'normal',
+        children: [
+          {
+            _type: 'span',
+            _key: 'default-about-hero-description-span',
+            text: 'A BI-EM Beauty modern, nyugodt és igényes környezetben kínál arckezeléseket, szépészeti szolgáltatásokat és professzionális megoldásokat azoknak, akik valódi feltöltődésre vágynak.',
+            marks: [],
+          },
+        ],
+      },
+    ],
     fallbackImageUrl: asset('home/hero.webp'),
     alt: 'BI-EM Beauty szalon belső tere',
   },

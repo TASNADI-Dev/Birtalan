@@ -1,5 +1,5 @@
 // Two-column page hero: heading and paragraph on the left, image on the right.
-import { defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from 'sanity';
 import { ImageIcon } from '@sanity/icons/Image';
 
 export const pageHeroSectionBlockType = defineType({
@@ -17,9 +17,44 @@ export const pageHeroSectionBlockType = defineType({
     defineField({
       name: 'description',
       title: 'Paragraph',
-      type: 'text',
-      rows: 4,
-      validation: (rule) => rule.required(),
+      description: 'Rich text shown below the heading.',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'block',
+          styles: [{ title: 'Normal', value: 'normal' }],
+          lists: [
+            { title: 'Bullet', value: 'bullet' },
+            { title: 'Number', value: 'number' },
+          ],
+          marks: {
+            decorators: [
+              { title: 'Strong', value: 'strong' },
+              { title: 'Emphasis', value: 'em' },
+            ],
+            annotations: [
+              defineArrayMember({
+                name: 'link',
+                type: 'object',
+                title: 'Link',
+                fields: [
+                  defineField({
+                    name: 'href',
+                    title: 'URL',
+                    type: 'url',
+                    validation: (rule) =>
+                      rule.uri({
+                        allowRelative: true,
+                        scheme: ['http', 'https', 'mailto', 'tel'],
+                      }),
+                  }),
+                ],
+              }),
+            ],
+          },
+        }),
+      ],
+      validation: (rule) => rule.required().min(1),
     }),
     defineField({
       name: 'image',
@@ -43,9 +78,14 @@ export const pageHeroSectionBlockType = defineType({
       media: 'image',
     },
     prepare({ heading, description, media }) {
+      const text =
+        description?.[0]?.children
+          ?.map((child: { text?: string }) => child.text ?? '')
+          .join('') ?? '';
+
       return {
         title: heading || 'Page hero',
-        subtitle: description,
+        subtitle: text,
         media,
       };
     },

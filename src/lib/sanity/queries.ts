@@ -65,7 +65,7 @@ export type PageHeroSection = {
   _type: 'pageHeroSection';
   _key: string;
   heading: string;
-  description: string;
+  description: PortableTextBlock[];
   imageUrl?: string;
   fallbackImageUrl?: string;
   alt?: string;
@@ -207,6 +207,25 @@ const CTA_SECTION_PROJECTION = /* groq */ `
   }
 `;
 
+const PORTABLE_TEXT_PROJECTION = /* groq */ `
+  _key,
+  _type,
+  style,
+  listItem,
+  level,
+  markDefs[]{
+    _key,
+    _type,
+    href
+  },
+  children[]{
+    _key,
+    _type,
+    text,
+    marks
+  }
+`;
+
 const SHARED_SECTIONS_PROJECTION = /* groq */ `
   sections[]{
     _key,
@@ -281,7 +300,7 @@ const ABOUT_PAGE_QUERY = /* groq */ `
       _type,
       _type == "pageHeroSection" => {
         heading,
-        description,
+        "description": description[]{${PORTABLE_TEXT_PROJECTION}},
         "imageUrl": image.asset->url,
         "alt": image.alt
       },

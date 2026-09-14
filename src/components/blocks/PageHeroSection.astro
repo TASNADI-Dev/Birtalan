@@ -1,6 +1,7 @@
 ---
 import { buildImageUrl } from '../../lib/sanity/image';
 import { asset } from '../../lib/assets';
+import { renderPortableTextHtml } from '../../lib/sanity/renderPortableText';
 import type { PageHeroSection as PageHeroSectionData } from '../../lib/sanity/queries';
 
 interface Props {
@@ -10,8 +11,9 @@ interface Props {
 const { section } = Astro.props;
 
 const imageSrc = section.imageUrl
-  ? buildImageUrl(section.imageUrl, { width: 1440, height: 1800 })
+  ? buildImageUrl(section.imageUrl, { width: 800, height: 800 })
   : section.fallbackImageUrl ?? asset('home/hero.webp');
+const descriptionHtml = renderPortableTextHtml(section.description);
 ---
 
 <section class="mx-auto w-full max-w-[1440px] px-6 py-20 max-md:py-12">
@@ -24,23 +26,26 @@ const imageSrc = section.imageUrl
       >
         {section.heading}
       </h1>
-      <p
-        class="max-w-[32rem] text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-700"
-      >
-        {section.description}
-      </p>
+      {
+        descriptionHtml && (
+          <div
+            class="flex max-w-[32rem] flex-col gap-3 text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-700 [&_a]:text-highlight [&_a]:underline [&_a]:underline-offset-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ul]:list-disc [&_ul]:pl-5"
+            set:html={descriptionHtml}
+          />
+        )
+      }
     </div>
 
     <div class="relative w-full overflow-hidden rounded-[12px]">
       <img
         src={imageSrc}
         alt={section.alt ?? ''}
-        width="720"
-        height="900"
+        width="800"
+        height="800"
         loading="eager"
         fetchpriority="high"
         decoding="async"
-        class="h-full min-h-[28rem] w-full object-cover max-md:aspect-[4/5] max-md:h-auto max-md:min-h-0"
+        class="aspect-square w-full object-cover"
       />
     </div>
   </div>

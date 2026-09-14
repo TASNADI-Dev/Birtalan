@@ -1,7 +1,10 @@
 // Renders Sanity Portable Text heading blocks with emphasis mark styling.
 import type { PortableTextBlock } from './queries';
 
-export function renderHeadingHtml(blocks: PortableTextBlock[] | undefined): string {
+export function renderHeadingHtml(
+  blocks: PortableTextBlock[] | undefined,
+  emphasisClass = 'text-mandalay-600',
+): string {
   if (!blocks?.length) return '';
 
   return blocks
@@ -10,7 +13,7 @@ export function renderHeadingHtml(blocks: PortableTextBlock[] | undefined): stri
         .map((child) => {
           const text = escapeHtml(child.text);
           return child.marks?.includes('emphasis')
-            ? `<span class="text-mandalay-600">${text}</span>`
+            ? `<span class="${emphasisClass}">${text}</span>`
             : text;
         })
         .join('');

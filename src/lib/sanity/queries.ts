@@ -82,12 +82,20 @@ export type TestimonialSection = {
   testimonials: Testimonial[];
 };
 
+export type CtaSection = {
+  _type: 'ctaSection';
+  _key: string;
+  heading: PortableTextBlock[];
+  buttonLabel: string;
+};
+
 export type PageSection =
   | HeroSection
   | SplitSection
   | GallerySection
   | PageHeroSection
-  | TestimonialSection;
+  | TestimonialSection
+  | CtaSection;
 
 export type HomePage = {
   sections: PageSection[] | null;
@@ -102,11 +110,11 @@ export type ContactDetails = {
   email?: string | null;
   tiktok?: string | null;
   instagram?: string | null;
+  facebook?: string | null;
 };
 
 export type ContactPage = {
   intro: PortableTextBlock[] | null;
-  contacts: ContactDetails | null;
 };
 
 export type TemplatePageLink = {
@@ -182,11 +190,29 @@ const TESTIMONIAL_SECTION_PROJECTION = /* groq */ `
   }
 `;
 
+const CTA_SECTION_PROJECTION = /* groq */ `
+  _type == "ctaSection" => {
+    "heading": ctaSet->heading[]{
+      _key,
+      _type,
+      style,
+      children[]{
+        _key,
+        _type,
+        text,
+        marks
+      }
+    },
+    "buttonLabel": ctaSet->buttonLabel
+  }
+`;
+
 const SHARED_SECTIONS_PROJECTION = /* groq */ `
   sections[]{
     _key,
     _type,
-    ${TESTIMONIAL_SECTION_PROJECTION}
+    ${TESTIMONIAL_SECTION_PROJECTION},
+    ${CTA_SECTION_PROJECTION}
   }
 `;
 
@@ -234,7 +260,8 @@ const HOME_PAGE_QUERY = /* groq */ `
           alt
         }
       },
-      ${TESTIMONIAL_SECTION_PROJECTION}
+      ${TESTIMONIAL_SECTION_PROJECTION},
+      ${CTA_SECTION_PROJECTION}
     }
   }
 `;
@@ -258,7 +285,8 @@ const ABOUT_PAGE_QUERY = /* groq */ `
         "imageUrl": image.asset->url,
         "alt": image.alt
       },
-      ${TESTIMONIAL_SECTION_PROJECTION}
+      ${TESTIMONIAL_SECTION_PROJECTION},
+      ${CTA_SECTION_PROJECTION}
     }
   }
 `;
@@ -270,6 +298,14 @@ export async function getAboutPage(): Promise<AboutPage | null> {
     return null;
   }
 }
+
+const CONTACTS_PROJECTION = /* groq */ `
+  phone,
+  email,
+  tiktok,
+  instagram,
+  facebook
+`;
 
 const CONTACT_PAGE_QUERY = /* groq */ `
   *[_id == "contactPage"][0]{
@@ -290,12 +326,6 @@ const CONTACT_PAGE_QUERY = /* groq */ `
         text,
         marks
       }
-    },
-    contacts {
-      phone,
-      email,
-      tiktok,
-      instagram
     }
   }
 `;
@@ -303,6 +333,20 @@ const CONTACT_PAGE_QUERY = /* groq */ `
 export async function getContactPage(): Promise<ContactPage | null> {
   try {
     return await sanityClient.fetch<ContactPage | null>(CONTACT_PAGE_QUERY);
+  } catch {
+    return null;
+  }
+}
+
+const GLOBAL_CONTACTS_QUERY = /* groq */ `
+  *[_id == "globalContacts"][0]{
+    ${CONTACTS_PROJECTION}
+  }
+`;
+
+export async function getGlobalContacts(): Promise<ContactDetails | null> {
+  try {
+    return await sanityClient.fetch<ContactDetails | null>(GLOBAL_CONTACTS_QUERY);
   } catch {
     return null;
   }

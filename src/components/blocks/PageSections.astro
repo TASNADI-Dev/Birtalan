@@ -1,4 +1,5 @@
 ---
+import CtaSection from './CtaSection.astro';
 import GallerySection from './GallerySection.astro';
 import HeroSection from './HeroSection.astro';
 import PageHeroSection from './PageHeroSection.astro';
@@ -26,6 +27,8 @@ const { sections } = Astro.props;
         return <GallerySection section={section} />;
       case 'testimonialSection':
         return <TestimonialSection section={section} />;
+      case 'ctaSection':
+        return <CtaSection section={section} />;
       default:
         return null;
     }

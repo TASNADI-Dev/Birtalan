@@ -2,12 +2,15 @@
 import ContactDetailsSection from "../components/blocks/ContactDetailsSection.astro";
 import ContactHeroSection from "../components/blocks/ContactHeroSection.astro";
 import Layout from "../layouts/Layout.astro";
-import { getContactPage } from "../lib/sanity/queries";
+import { getContactPage, getGlobalContacts } from "../lib/sanity/queries";
 
-const contactPage = await getContactPage();
+const [contactPage, contacts] = await Promise.all([
+	getContactPage(),
+	getGlobalContacts(),
+]);
 ---
 
 <Layout title="Kapcsolat">
 	<ContactHeroSection intro={contactPage?.intro} />
-	<ContactDetailsSection contacts={contactPage?.contacts} />
+	<ContactDetailsSection contacts={contacts} />
 </Layout>

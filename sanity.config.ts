@@ -10,6 +10,8 @@ const SINGLETON_TYPES = [
   'galleryPage',
   'contactPage',
   'testimonials',
+  'globalContacts',
+  'globalCta',
 ];
 
 const projectId =

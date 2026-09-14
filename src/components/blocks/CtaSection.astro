@@ -1,0 +1,136 @@
+---
+import Button from '../Button.astro';
+import { asset } from '../../lib/assets';
+import { renderHeadingHtml } from '../../lib/sanity/renderHeading';
+import type { CtaSection as CtaSectionData } from '../../lib/sanity/queries';
+
+interface Props {
+  section: CtaSectionData;
+}
+
+const { section } = Astro.props;
+const headingHtml = renderHeadingHtml(section.heading, 'font-heading italic');
+const blurLayers = [
+  { blur: 2, opacity: 1 },
+  { blur: 4, opacity: 1 },
+  { blur: 6, opacity: 0.85 },
+  { blur: 8, opacity: 0.65 },
+  { blur: 10, opacity: 0.45 },
+  { blur: 12, opacity: 0.3 },
+  { blur: 14, opacity: 0.18 },
+  { blur: 16, opacity: 0.1 },
+];
+---
+
+{
+  section.heading?.length > 0 && section.buttonLabel && (
+    <section class="px-4 py-12 md:px-6 md:py-20 lg:px-8">
+      <div class="relative isolate h-[70vh] min-h-[32rem] overflow-hidden rounded-[12px]">
+        <img
+          src={asset('global/cta-bg.webp')}
+          alt=""
+          width="1920"
+          height="640"
+          loading="lazy"
+          decoding="async"
+          class="absolute inset-0 h-full w-full object-cover"
+          aria-hidden="true"
+        />
+
+        <div class="cta-blur-edge cta-blur-edge--top" aria-hidden="true">
+          {
+            blurLayers.map((layer, index) => (
+              <div
+                class="cta-blur-layer cta-blur-layer--top"
+                style={`--blur: ${layer.blur}px; --opacity: ${layer.opacity}; --start: ${index * 12.5}%; --end: ${(index + 1) * 12.5}%;`}
+              />
+            ))
+          }
+          <div class="cta-blur-gradient cta-blur-gradient--top" />
+        </div>
+
+        <div class="cta-blur-edge cta-blur-edge--bottom" aria-hidden="true">
+          {
+            blurLayers.map((layer, index) => (
+              <div
+                class="cta-blur-layer cta-blur-layer--bottom"
+                style={`--blur: ${layer.blur}px; --opacity: ${layer.opacity}; --start: ${index * 12.5}%; --end: ${(index + 1) * 12.5}%;`}
+              />
+            ))
+          }
+          <div class="cta-blur-gradient cta-blur-gradient--bottom" />
+        </div>
+
+        <div class="relative z-10 flex h-full flex-col items-center justify-center gap-8 px-6 text-center md:gap-10">
+          <h2
+            class="max-w-[48rem] font-sans text-[2.5rem] font-light leading-[1.1] tracking-[-0.03em] text-white max-md:text-[2rem]"
+            set:html={headingHtml}
+          />
+
+          <Button variant="large" href="/kapcsolat" arrow>
+            {section.buttonLabel}
+          </Button>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .cta-blur-edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 80px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .cta-blur-edge--top {
+    top: 0;
+  }
+
+  .cta-blur-edge--bottom {
+    bottom: 0;
+  }
+
+  .cta-blur-layer {
+    position: absolute;
+    inset: 0;
+    opacity: var(--opacity);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+  }
+
+  .cta-blur-layer--top {
+    mask-image: linear-gradient(to bottom, black var(--start), transparent var(--end));
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black var(--start),
+      transparent var(--end)
+    );
+  }
+
+  .cta-blur-layer--bottom {
+    mask-image: linear-gradient(to top, black var(--start), transparent var(--end));
+    -webkit-mask-image: linear-gradient(
+      to top,
+      black var(--start),
+      transparent var(--end)
+    );
+  }
+
+  .cta-blur-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .cta-blur-gradient--top {
+    background: linear-gradient(to bottom, rgb(0 0 0 / 85%), transparent);
+  }
+
+  .cta-blur-gradient--bottom {
+    background: linear-gradient(to top, rgb(0 0 0 / 85%), transparent);
+  }
+</style>

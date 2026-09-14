@@ -1,4 +1,5 @@
 // Sanity Studio desk structure: page singletons and template pages.
+import { BoltIcon } from '@sanity/icons/Bolt';
 import { CommentIcon } from '@sanity/icons/Comment';
 import { EnvelopeIcon } from '@sanity/icons/Envelope';
 import { HomeIcon } from '@sanity/icons/Home';
@@ -12,6 +13,8 @@ const SINGLETONS = [
   'galleryPage',
   'contactPage',
   'testimonials',
+  'globalContacts',
+  'globalCta',
 ] as const;
 const STRUCTURED_TYPES = [
   'homePage',
@@ -19,6 +22,8 @@ const STRUCTURED_TYPES = [
   'galleryPage',
   'contactPage',
   'testimonials',
+  'globalContacts',
+  'globalCta',
   'templatePage',
 ] as const;
 
@@ -65,6 +70,15 @@ export const structure: StructureResolver = (S) =>
             .title('Kapcsolat'),
         ),
       S.listItem()
+        .title('Elérhetőségek')
+        .icon(EnvelopeIcon)
+        .child(
+          S.document()
+            .schemaType('globalContacts')
+            .documentId('globalContacts')
+            .title('Elérhetőségek'),
+        ),
+      S.listItem()
         .title('Vélemények')
         .icon(CommentIcon)
         .child(
@@ -72,6 +86,15 @@ export const structure: StructureResolver = (S) =>
             .schemaType('testimonials')
             .documentId('testimonials')
             .title('Rólunk mondták'),
+        ),
+      S.listItem()
+        .title('CTA szekció')
+        .icon(BoltIcon)
+        .child(
+          S.document()
+            .schemaType('globalCta')
+            .documentId('globalCta')
+            .title('CTA szekció'),
         ),
       S.divider(),
       S.documentTypeListItem('templatePage').title('Sablon oldalak'),

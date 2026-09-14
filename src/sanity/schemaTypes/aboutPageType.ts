@@ -22,6 +22,7 @@ export const aboutPageType = defineType({
       of: [
         defineArrayMember({ type: 'pageHeroSection' }),
         defineArrayMember({ type: 'testimonialSection' }),
+        defineArrayMember({ type: 'ctaSection' }),
       ],
     }),
   ],

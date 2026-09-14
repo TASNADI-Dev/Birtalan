@@ -5,5 +5,8 @@ export const sharedSectionsType = defineType({
   name: 'sharedSections',
   title: 'Page sections',
   type: 'array',
-  of: [defineArrayMember({ type: 'testimonialSection' })],
+  of: [
+    defineArrayMember({ type: 'testimonialSection' }),
+    defineArrayMember({ type: 'ctaSection' }),
+  ],
 });

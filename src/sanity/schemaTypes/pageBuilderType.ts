@@ -10,5 +10,6 @@ export const pageBuilderType = defineType({
     defineArrayMember({ type: 'splitSection' }),
     defineArrayMember({ type: 'gallerySection' }),
     defineArrayMember({ type: 'testimonialSection' }),
+    defineArrayMember({ type: 'ctaSection' }),
   ],
 });

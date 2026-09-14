@@ -2,6 +2,9 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
 import { EnvelopeIcon } from '@sanity/icons/Envelope';
 
+export const CONTACT_PAGE_INSTRUCTIONS =
+  'A telefon-, e-mail- és közösségi média linkeket az Elérhetőségek oldalon tudod módosítani. Az ott végzett változtatások a Kapcsolat oldalon és a láblécben is megjelennek.';
+
 export const contactPageType = defineType({
   name: 'contactPage',
   title: 'Kapcsolat',
@@ -14,6 +17,14 @@ export const contactPageType = defineType({
       type: 'string',
       hidden: true,
       initialValue: 'Kapcsolat',
+    }),
+    defineField({
+      name: 'instructions',
+      title: 'Útmutató',
+      type: 'text',
+      rows: 3,
+      readOnly: true,
+      initialValue: CONTACT_PAGE_INSTRUCTIONS,
     }),
     defineField({
       name: 'intro',

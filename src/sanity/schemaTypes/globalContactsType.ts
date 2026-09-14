@@ -2,6 +2,9 @@
 import { defineField, defineType } from 'sanity';
 import { EnvelopeIcon } from '@sanity/icons/Envelope';
 
+export const GLOBAL_CONTACTS_INSTRUCTIONS =
+  'Az itt megadott elérhetőségek a Kapcsolat oldalon jelennek meg. A közösségi média linkek a weboldal láblécében is láthatók. Ha itt módosítasz egy adatot, a Kapcsolat oldal és a lábléc is automatikusan frissül.';
+
 export const globalContactsType = defineType({
   name: 'globalContacts',
   title: 'Elérhetőségek',
@@ -14,6 +17,14 @@ export const globalContactsType = defineType({
       type: 'string',
       hidden: true,
       initialValue: 'Elérhetőségek',
+    }),
+    defineField({
+      name: 'instructions',
+      title: 'Útmutató',
+      type: 'text',
+      rows: 3,
+      readOnly: true,
+      initialValue: GLOBAL_CONTACTS_INSTRUCTIONS,
     }),
     defineField({
       name: 'phone',

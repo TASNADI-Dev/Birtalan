@@ -1,22 +1,22 @@
 // Sanity schema registry. Add document and object types here as the CMS grows.
+import { pageBuilderType } from './arrays/pageBuilderType';
+import { sharedSectionsType } from './arrays/sharedSectionsType';
 import { gallerySectionBlockType } from './blocks/gallerySectionBlockType';
 import { heroBlockType } from './blocks/heroBlockType';
 import { pageHeroSectionBlockType } from './blocks/pageHeroSectionBlockType';
 import { splitSectionBlockType } from './blocks/splitSectionBlockType';
 import { ctaSectionBlockType } from './blocks/ctaSectionBlockType';
 import { testimonialSectionBlockType } from './blocks/testimonialSectionBlockType';
-import { aboutPageType } from './aboutPageType';
-import { contactPageType } from './contactPageType';
-import { galleryPageType } from './galleryPageType';
-import { homePageType } from './homePageType';
-import { pageBuilderType } from './pageBuilderType';
-import { templatePageGalleryImageType } from './templatePageGalleryImageType';
-import { priceListType } from './priceListType';
-import { templatePageType } from './templatePageType';
-import { globalContactsType } from './globalContactsType';
-import { globalCtaType } from './globalCtaType';
-import { testimonialsType } from './testimonialsType';
-import { sharedSectionsType } from './sharedSectionsType';
+import { aboutPageType } from './documents/aboutPageType';
+import { contactPageType } from './documents/contactPageType';
+import { galleryPageType } from './documents/galleryPageType';
+import { globalContactsType } from './documents/globalContactsType';
+import { globalCtaType } from './documents/globalCtaType';
+import { homePageType } from './documents/homePageType';
+import { templatePageType } from './documents/templatePageType';
+import { testimonialsType } from './documents/testimonialsType';
+import { priceListType } from './objects/priceListType';
+import { templatePageGalleryImageType } from './objects/templatePageGalleryImageType';
 
 export const schemaTypes = [
   homePageType,

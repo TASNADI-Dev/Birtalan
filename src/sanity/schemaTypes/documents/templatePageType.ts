@@ -5,7 +5,7 @@ import {
   TEMPLATE_PAGE_FOLDER,
   slugifyTemplatePage,
   templatePageHref,
-} from '../../lib/sanity/templatePagePath';
+} from '../../../lib/sanity/templatePagePath';
 
 export const templatePageType = defineType({
   name: 'templatePage',

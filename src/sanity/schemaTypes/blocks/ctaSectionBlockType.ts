@@ -12,7 +12,7 @@ export const ctaSectionBlockType = defineType({
       name: 'ctaSet',
       title: 'CTA tartalom',
       description:
-        'Válaszd ki a megosztott CTA dokumentumot. Annak módosítása minden oldalon frissíti a felhívást.',
+        'Add hozzá CTA szekciót. Annak módosítása minden oldalon érvényesül.',
       type: 'reference',
       to: [{ type: 'globalCta' }],
       initialValue: {
@@ -26,7 +26,7 @@ export const ctaSectionBlockType = defineType({
     prepare() {
       return {
         title: 'CTA',
-        subtitle: 'Megosztott felhívás',
+        subtitle: 'Felhívás időpontfoglalásra',
       };
     },
   },

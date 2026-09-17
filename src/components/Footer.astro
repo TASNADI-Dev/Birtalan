@@ -20,17 +20,30 @@ const navLinks = [
 ];
 
 const legalLinks = [
-  {
+  { 
     href: asset('global/Hozzajarulo-nyilatkozat.pdf'),
-    label: 'Hozzájáruló nyilatkozat',
+    label: 'Képmás- és hangfelvétel hozzájárulás',
+    external: true,
+  },
+  {
+    href: asset('global/Sminktetovalas-nyilatkozat.pdf'),
+    label: 'Sminktetoválás nyilatkozat',
+    external: true,
+  },
+  {
+    href: asset('global/Carbon-Peeling-vendegtajekoztato.pdf'),
+    label: 'Carbon Peeling vendégtájékoztató (rövid)',
     external: true,
   },
   {
     href: asset('global/Vendegtajekoztato.pdf'),
-    label: 'Vendégtájékoztató',
+    label: 'Carbon Peeling vendégtájékoztató (hosszú)',
     external: true,
   },
-  { href: '/adatvedelmi-nyilatkozat', label: 'Adatvédelmi nyilatkozat' },
+  {
+    href: '/adatvedelmi-nyilatkozat',
+    label: 'Adatvédelmi nyilatkozat',
+  },
 ];
 
 const linkClass =

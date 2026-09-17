@@ -85,7 +85,7 @@ export const templatePageType = defineType({
     }),
     defineField({
       name: 'sections',
-      title: 'Szekciók',
+      title: 'További szekciók',
       type: 'sharedSections',
     }),
     defineField({

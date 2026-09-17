@@ -1,0 +1,40 @@
+---
+import { asset } from "../lib/assets";
+---
+
+<section class="bg-white" aria-label="Program support">
+	<div class="mx-auto w-full max-w-[1440px] px-6 py-20 max-md:py-12">
+		<div
+			class="mx-auto flex max-w-[56rem] flex-col items-center gap-12 text-center max-md:gap-10"
+		>
+			<p
+				class="text-[1rem] leading-relaxed tracking-[-0.01em] text-mako-700 max-md:text-[0.9375rem]"
+			>
+				A weboldal a Demján Sándor Program keretében és támogatásával valósult
+				meg.
+			</p>
+			<div
+				class="flex flex-wrap items-center justify-center gap-x-20 gap-y-10 max-md:gap-x-12 max-md:gap-y-8"
+			>
+				<img
+					src={asset("home/home_DSP_logo_vector.svg")}
+					alt="Demján Sándor Program — www.dsprogram.hu"
+					width="300"
+					height="120"
+					class="h-auto w-[18.75rem] max-w-full object-contain"
+					loading="lazy"
+					decoding="async"
+				/>
+				<img
+					src={asset("home/home_NEUM_logo_fekete_vector.svg")}
+					alt="Neumann János Nonprofit Kft."
+					width="300"
+					height="100"
+					class="h-auto w-[18.75rem] max-w-full object-contain"
+					loading="lazy"
+					decoding="async"
+				/>
+			</div>
+		</div>
+	</div>
+</section>

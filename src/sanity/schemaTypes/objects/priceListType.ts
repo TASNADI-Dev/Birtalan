@@ -76,7 +76,7 @@ export const priceListType = defineType({
     }),
     defineField({
       name: 'infoSections',
-      title: 'Információs szekciók',
+      title: 'További információk',
       type: 'array',
       description: 'Pl. korrekciós feltételek, frissítési árak',
       of: [

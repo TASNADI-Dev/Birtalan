@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PageSections from "../components/blocks/PageSections.astro";
+import ProgramSupportSection from "../components/ProgramSupportSection.astro";
 import { defaultHomeSections } from "../lib/sanity/defaultHomePage";
 import { getHomePage } from "../lib/sanity/queries";
 
@@ -11,4 +12,5 @@ const sections =
 
 <Layout title="Birtalan">
 	<PageSections sections={sections} />
+	<ProgramSupportSection />
 </Layout>

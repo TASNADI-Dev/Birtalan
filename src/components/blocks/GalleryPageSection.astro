@@ -1,5 +1,5 @@
 ---
-import { buildImageUrl } from '../../lib/sanity/image';
+import GalleryImage from '../GalleryImage.astro';
 import type { GalleryPageTab } from '../../lib/sanity/queries';
 
 interface Props {
@@ -57,43 +57,16 @@ const { tabs } = Astro.props;
 						hidden={index !== 0}
 						class="w-full"
 					>
-						{
-							tab.images.length > 0 && (
-								<div class="columns-2 gap-4 md:columns-4 md:gap-6">
-									{tab.images.map((item) => {
-										const imageSrc = item.image
-											? buildImageUrl(item.image, {
-													width: 600,
-												})
-											: (item.fallbackImageUrl ?? '');
-
-										if (!imageSrc) return null;
-
-										const caption = item.alt?.trim() ?? '';
-
-										return (
-											<div class="relative mb-4 w-full break-inside-avoid overflow-hidden rounded-[12px] md:mb-6">
-												<img
-													src={imageSrc}
-													alt={caption}
-													loading="lazy"
-													decoding="async"
-													class="h-auto w-full"
-												/>
-												{caption && (
-													<span
-														aria-hidden="true"
-														class="absolute bottom-2 left-2 max-w-[calc(100%-1rem)] rounded-[0.3rem] bg-mako-50 px-2 py-1 text-[0.75rem] leading-none text-mandalay-950"
-													>
-														{caption}
-													</span>
-												)}
-											</div>
-										);
-									})}
-								</div>
-							)
-						}
+						{tab.images.length > 0 && (
+							<div class="columns-2 gap-4 md:columns-4 md:gap-6">
+								{tab.images.map((item) => (
+									<GalleryImage
+										item={item}
+										galleryId={`gallery-page-${tab.slug}`}
+									/>
+								))}
+							</div>
+						)}
 					</div>
 				))
 			}
@@ -103,6 +76,8 @@ const { tabs } = Astro.props;
 
 <script>
 	import { initGalleryTabs } from '../../scripts/gallery-tabs';
+	import { initGalleryLightbox } from '../../scripts/gallery-lightbox';
 
 	initGalleryTabs();
+	initGalleryLightbox();
 </script>

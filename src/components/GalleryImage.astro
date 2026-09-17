@@ -1,0 +1,71 @@
+---
+import { buildImageUrl } from '../lib/sanity/image';
+import type { GalleryImage as GalleryImageData } from '../lib/sanity/queries';
+
+interface Props {
+	item: GalleryImageData;
+	galleryId: string;
+}
+
+const { item, galleryId } = Astro.props;
+
+const thumbSrc = item.image
+	? buildImageUrl(item.image, { width: 600 })
+	: (item.fallbackImageUrl ?? '');
+
+const lightboxSrc = item.image
+	? buildImageUrl(item.image, { width: 1600 })
+	: (item.fallbackImageUrl ?? '');
+
+const caption = item.alt?.trim() ?? '';
+---
+
+{
+	thumbSrc && lightboxSrc && (
+		<div
+			class="group relative mb-4 w-full break-inside-avoid overflow-hidden rounded-[12px] md:mb-6"
+			data-gallery-item
+		>
+			<img
+				src={thumbSrc}
+				alt={caption}
+				loading="lazy"
+				decoding="async"
+				draggable="false"
+				class="pointer-events-none h-auto w-full select-none"
+			/>
+			{caption && (
+				<span
+					aria-hidden="true"
+					class="pointer-events-none absolute bottom-2 left-2 z-[1] max-w-[calc(100%-1rem)] rounded-[0.3rem] bg-mako-50 px-2 py-1 text-[0.75rem] leading-none text-mandalay-950"
+				>
+					{caption}
+				</span>
+			)}
+			<a
+				href={lightboxSrc}
+				class="absolute top-2 right-2 z-[1] flex size-8 items-center justify-center rounded-[0.3rem] bg-white text-mandalay-950 opacity-0 pointer-events-none transition-opacity duration-200 focus-visible:opacity-100 focus-visible:pointer-events-auto focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mandalay-400 group-hover:opacity-100 group-hover:pointer-events-auto group-data-[expand-visible]:opacity-100 group-data-[expand-visible]:pointer-events-auto"
+				data-gallery={galleryId}
+				data-gallery-lightbox
+				aria-label={caption ? `Megnyitás: ${caption}` : 'Kép megnyitása'}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="1.75"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="size-4"
+					aria-hidden="true"
+				>
+					<path d="M15 3h6v6" />
+					<path d="M9 21H3v-6" />
+					<path d="M21 3l-7 7" />
+					<path d="M3 21l7-7" />
+				</svg>
+			</a>
+		</div>
+	)
+}

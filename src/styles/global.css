@@ -42,3 +42,27 @@
     color: var(--color-foreground);
   }
 }
+
+/* GLightbox prev/next arrows */
+.glightbox-container.glightbox-clean .gprev,
+.glightbox-container.glightbox-clean .gnext {
+  background-color: var(--color-mako-50);
+  border-radius: 0.3rem;
+}
+
+.glightbox-container.glightbox-clean .gprev:hover,
+.glightbox-container.glightbox-clean .gnext:hover {
+  background-color: var(--color-mako-100);
+}
+
+.glightbox-container.glightbox-clean .gprev path,
+.glightbox-container.glightbox-clean .gnext path {
+  fill: var(--color-mandalay-950);
+}
+
+/* Prevent interacting with / dragging lightbox images */
+.glightbox-container .gslide-image img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}

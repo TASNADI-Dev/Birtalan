@@ -1,6 +1,6 @@
 ---
 import Button from '../Button.astro';
-import { buildImageUrl } from '../../lib/sanity/image';
+import GalleryImage from '../GalleryImage.astro';
 import type { GallerySection as GallerySectionData } from '../../lib/sanity/queries';
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { section, showMoreLink = false } = Astro.props;
+const galleryId = `gallery-${section._key}`;
 ---
 
 <section class="mx-auto w-full max-w-[1440px] px-6 py-12 md:py-20">
@@ -30,34 +31,16 @@ const { section, showMoreLink = false } = Astro.props;
 
     <div class="columns-2 gap-4 md:columns-4 md:gap-6">
       {
-        section.images.map((item) => {
-          const imageSrc = item.image
-            ? buildImageUrl(item.image, { width: 600 })
-            : item.fallbackImageUrl ?? '';
-
-          const caption = item.alt?.trim() ?? '';
-
-          return (
-            <div class="relative mb-4 w-full break-inside-avoid overflow-hidden rounded-[12px] md:mb-6">
-              <img
-                src={imageSrc}
-                alt={caption}
-                loading="lazy"
-                decoding="async"
-                class="h-auto w-full"
-              />
-              {caption && (
-                <span
-                  aria-hidden="true"
-                  class="absolute bottom-2 left-2 max-w-[calc(100%-1rem)] rounded-[0.3rem] bg-mako-50 px-2 py-1 text-[0.75rem] leading-none text-mandalay-950"
-                >
-                  {caption}
-                </span>
-              )}
-            </div>
-          );
-        })
+        section.images.map((item) => (
+          <GalleryImage item={item} galleryId={galleryId} />
+        ))
       }
     </div>
   </div>
 </section>
+
+<script>
+  import { initGalleryLightbox } from '../../scripts/gallery-lightbox';
+
+  initGalleryLightbox();
+</script>

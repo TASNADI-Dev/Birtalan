@@ -18,6 +18,19 @@ export const priceListType = defineType({
           name: 'priceListRow',
           fields: [
             defineField({
+              name: 'image',
+              title: 'Kép',
+              type: 'image',
+              options: { hotspot: true },
+              fields: [
+                defineField({
+                  name: 'alt',
+                  title: 'Alternatív szöveg',
+                  type: 'string',
+                }),
+              ],
+            }),
+            defineField({
               name: 'category',
               title: 'Kategória',
               type: 'string',
@@ -35,7 +48,6 @@ export const priceListType = defineType({
               title: 'Ár',
               type: 'string',
               description: 'Pl. "79 000 Ft" vagy "Egyedi árazás"',
-              validation: (rule) => rule.required(),
             }),
             defineField({
               name: 'description',
@@ -49,11 +61,13 @@ export const priceListType = defineType({
               title: 'service',
               subtitle: 'price',
               category: 'category',
+              media: 'image',
             },
-            prepare({ title, subtitle, category }) {
+            prepare({ title, subtitle, category, media }) {
               return {
                 title,
                 subtitle: [category, subtitle].filter(Boolean).join(' · '),
+                media,
               };
             },
           },

@@ -1,4 +1,5 @@
 ---
+import { buildImageUrl } from '../../lib/sanity/image';
 import type { PriceList } from '../../lib/sanity/queries';
 
 interface Props {
@@ -32,39 +33,55 @@ function shouldShowCategory(index: number): boolean {
     {
       rows.length > 0 && (
         <div class="flex flex-col gap-5 md:gap-6">
-          {rows.map((row, index) => (
-            <div class="flex flex-col gap-4">
-              {
-                shouldShowCategory(index) && (
+          {rows.map((row, index) => {
+            const imageSrc = row.image?.asset
+              ? buildImageUrl(row.image, { width: 160 })
+              : '';
+
+            return (
+              <div class="flex flex-col gap-4">
+                {imageSrc && (
+                  <img
+                    src={imageSrc}
+                    alt={row.alt?.trim() || row.service}
+                    loading="lazy"
+                    decoding="async"
+                    class="h-auto w-full max-w-[5rem]"
+                  />
+                )}
+                {shouldShowCategory(index) && (
                   <h3 class="font-sans text-[0.875rem] font-medium uppercase tracking-[0.06em] text-mandalay-700">
                     {row.category}
                   </h3>
-                )
-              }
-              <div class="flex flex-col gap-2 border-b border-mako-100 pb-6 last:border-b-0 last:pb-0">
-                <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
-                  <h4 class="min-w-0 font-sans text-[1.125rem] font-normal leading-[1.3] tracking-[-0.02em] text-mandalay-950">
-                    {row.service}
-                  </h4>
-                  <span
-                    class="mb-[0.35em] hidden min-w-4 flex-1 border-b border-dotted border-mako-100 sm:block"
-                    aria-hidden="true"
-                  ></span>
-                  <p class="shrink-0 text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-600">
-                    Ár:{' '}
-                    <span class="font-semibold text-mandalay-950">{row.price}</span>
-                  </p>
-                </div>
-                {
-                  row.description && (
+                )}
+                <div class="flex flex-col gap-2 border-b border-mako-100 pb-6 last:border-b-0 last:pb-0">
+                  <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
+                    <h4 class="min-w-0 font-sans text-[1.125rem] font-normal leading-[1.3] tracking-[-0.02em] text-mandalay-950">
+                      {row.service}
+                    </h4>
+                    {row.price?.trim() && (
+                      <>
+                        <span
+                          class="mb-[0.35em] hidden min-w-4 flex-1 border-b border-dotted border-mako-100 sm:block"
+                          aria-hidden="true"
+                        ></span>
+                        <p class="shrink-0 text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-600">
+                          <span class="font-semibold text-mandalay-950">
+                            {row.price}
+                          </span>
+                        </p>
+                      </>
+                    )}
+                  </div>
+                  {row.description && (
                     <p class="max-w-[40rem] text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-600">
                       {row.description}
                     </p>
-                  )
-                }
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )
     }

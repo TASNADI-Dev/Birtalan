@@ -145,8 +145,10 @@ export type TemplatePageHero = {
 export type PriceListRow = {
   category?: string;
   service: string;
-  price: string;
+  price?: string;
   description?: string;
+  image?: SanityImage | null;
+  alt?: string;
 };
 
 export type PriceListInfoSection = {
@@ -433,7 +435,9 @@ const TEMPLATE_PAGE_PATHS_QUERY = /* groq */ `
         category,
         service,
         price,
-        description
+        description,
+        "image": image{${IMAGE_PROJECTION}},
+        "alt": image.alt
       },
       infoSections[] {
         heading,
@@ -470,8 +474,7 @@ function withTemplatePageGallery(
 
 function withHeroDefaults(page: FetchedTemplatePage): TemplatePage {
   const rows = page.priceList?.rows?.filter(
-    (row): row is PriceListRow =>
-      Boolean(row?.service?.trim()) && Boolean(row?.price?.trim()),
+    (row): row is PriceListRow => Boolean(row?.service?.trim()),
   );
 
   return {

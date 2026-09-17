@@ -25,6 +25,17 @@ const { title = "Astro" } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-83QKD8FKET"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+			gtag("config", "G-83QKD8FKET");
+		</script>
+		<!-- End Google tag (gtag.js) -->
 	</head>
 	<body class="flex min-h-svh flex-col pt-[4rem]">
 		<Nav />

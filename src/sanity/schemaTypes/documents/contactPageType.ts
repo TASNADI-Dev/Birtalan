@@ -1,9 +1,9 @@
-// Singleton contact page document with intro copy.
+// Singleton contact page document with intro copy and locations.
 import { defineArrayMember, defineField, defineType } from 'sanity';
 import { EnvelopeIcon } from '@sanity/icons/Envelope';
 
 export const CONTACT_PAGE_INSTRUCTIONS =
-  'A telefon-, e-mail- és közösségi média linkeket az Elérhetőségek oldalon tudod módosítani. Az ott végzett változtatások a Kapcsolat oldalon és a láblécben is megjelennek.';
+  'A telefon-, e-mail- és közösségi média linkeket az Elérhetőségek oldalon tudod módosítani. Az ott végzett változtatások a Kapcsolat oldalon és a láblécben is megjelennek. A helyszíneket ezen az oldalon, a Helyszínek mezőben tudod szerkeszteni.';
 
 export const contactPageType = defineType({
   name: 'contactPage',
@@ -63,6 +63,51 @@ export const contactPageType = defineType({
                 ],
               }),
             ],
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'locations',
+      title: 'Helyszínek',
+      description:
+        'A Kapcsolat oldalon a Helyszín szekcióban megjelenő címek.',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'contactLocation',
+          fields: [
+            defineField({
+              name: 'name',
+              title: 'Név',
+              type: 'string',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'address',
+              title: 'Cím',
+              type: 'text',
+              rows: 3,
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'mapsUrl',
+              title: 'Google Maps link',
+              type: 'url',
+              description:
+                'Opcionális Google Maps URL. Ha meg van adva, a helyszín kattintható lesz.',
+              validation: (rule) =>
+                rule.uri({
+                  scheme: ['http', 'https'],
+                }),
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'name',
+              subtitle: 'address',
+            },
           },
         }),
       ],

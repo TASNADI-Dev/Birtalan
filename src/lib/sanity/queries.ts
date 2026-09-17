@@ -121,8 +121,16 @@ export type ContactDetails = {
   facebook?: string | null;
 };
 
+export type ContactLocation = {
+  _key: string;
+  name: string;
+  address: string;
+  mapsUrl?: string | null;
+};
+
 export type ContactPage = {
   intro: PortableTextBlock[] | null;
+  locations: ContactLocation[] | null;
 };
 
 export type PrivacyPage = {
@@ -371,6 +379,12 @@ const CONTACT_PAGE_QUERY = /* groq */ `
         text,
         marks
       }
+    },
+    locations[]{
+      _key,
+      name,
+      address,
+      mapsUrl
     }
   }
 `;

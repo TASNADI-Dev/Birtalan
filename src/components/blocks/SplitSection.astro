@@ -9,8 +9,8 @@ interface Props {
 
 const { section } = Astro.props;
 
-const imageSrc = section.imageUrl
-  ? buildImageUrl(section.imageUrl, { width: 800, height: 800 })
+const imageSrc = section.image
+  ? buildImageUrl(section.image, { width: 800, height: 800 })
   : section.fallbackImageUrl ?? '';
 const isReversed = section.variant === 'text-image';
 const buttonLabel = section.buttonLabel ?? 'Részletek';

@@ -10,8 +10,8 @@ interface Props {
 
 const { section } = Astro.props;
 
-const imageSrc = section.imageUrl
-  ? buildImageUrl(section.imageUrl, { width: 800, height: 800 })
+const imageSrc = section.image
+  ? buildImageUrl(section.image, { width: 800, height: 800 })
   : section.fallbackImageUrl ?? asset('home/hero.webp');
 const descriptionHtml = renderPortableTextHtml(section.description);
 ---

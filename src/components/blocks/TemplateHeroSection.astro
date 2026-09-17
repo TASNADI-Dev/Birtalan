@@ -11,8 +11,8 @@ interface Props {
 
 const { hero, hasPriceList = true } = Astro.props;
 
-const imageSrc = hero.imageUrl
-  ? buildImageUrl(hero.imageUrl, { width: 800, height: 800 })
+const imageSrc = hero.image
+  ? buildImageUrl(hero.image, { width: 800, height: 800 })
   : hero.fallbackImageUrl ?? asset('home/hero.webp');
 ---
 

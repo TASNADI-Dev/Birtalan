@@ -1,8 +1,15 @@
 // GROQ queries for fetching Sanity page content.
 import { sanityClient } from 'sanity:client';
 import { asset } from '../assets';
+import type { SanityImage } from './image';
 import { defaultTemplatePages } from './defaultTemplatePages';
 import { templatePageHref, templatePageSlug } from './templatePagePath';
+
+const IMAGE_PROJECTION = /* groq */ `
+  asset->{_id, url},
+  crop,
+  hotspot
+`;
 
 export type PortableTextSpan = {
   _type: 'span';
@@ -40,7 +47,7 @@ export type SplitSection = {
   _type: 'splitSection';
   _key: string;
   variant: 'image-text' | 'text-image';
-  imageUrl?: string;
+  image?: SanityImage | null;
   fallbackImageUrl?: string;
   alt?: string;
   heading: string;
@@ -50,7 +57,7 @@ export type SplitSection = {
 };
 
 export type GalleryImage = {
-  imageUrl?: string;
+  image?: SanityImage | null;
   fallbackImageUrl?: string;
   alt?: string;
 };
@@ -67,7 +74,7 @@ export type PageHeroSection = {
   _key: string;
   heading: string;
   description: PortableTextBlock[];
-  imageUrl?: string;
+  image?: SanityImage | null;
   fallbackImageUrl?: string;
   alt?: string;
 };
@@ -130,7 +137,7 @@ export type TemplatePageLink = {
 export type TemplatePageHero = {
   heading: string;
   description: string;
-  imageUrl?: string;
+  image?: SanityImage | null;
   fallbackImageUrl?: string;
   alt?: string;
 };
@@ -176,7 +183,7 @@ type FetchedTemplatePage = {
   hero: {
     heading?: string | null;
     description?: string | null;
-    imageUrl?: string | null;
+    image?: SanityImage | null;
     alt?: string | null;
   } | null;
   priceList?: {
@@ -270,7 +277,7 @@ const HOME_PAGE_QUERY = /* groq */ `
       },
       _type == "splitSection" => {
         variant,
-        "imageUrl": image.asset->url,
+        "image": image{${IMAGE_PROJECTION}},
         alt,
         heading,
         paragraph,
@@ -282,8 +289,8 @@ const HOME_PAGE_QUERY = /* groq */ `
       _type == "gallerySection" => {
         heading,
         "images": images[]{
-          "imageUrl": image.asset->url,
-          alt
+          "image": image{${IMAGE_PROJECTION}},
+          "alt": coalesce(image.alt, alt)
         }
       },
       ${TESTIMONIAL_SECTION_PROJECTION},
@@ -318,7 +325,7 @@ const ABOUT_PAGE_QUERY = /* groq */ `
       _type == "pageHeroSection" => {
         heading,
         "description": description[]{${PORTABLE_TEXT_PROJECTION}},
-        "imageUrl": image.asset->url,
+        "image": image{${IMAGE_PROJECTION}},
         "alt": image.alt
       },
       ${TESTIMONIAL_SECTION_PROJECTION},
@@ -418,7 +425,7 @@ const TEMPLATE_PAGE_PATHS_QUERY = /* groq */ `
     "hero": {
       "heading": hero.heading,
       "description": hero.description,
-      "imageUrl": hero.image.asset->url,
+      "image": hero.image{${IMAGE_PROJECTION}},
       "alt": hero.image.alt
     },
     priceList {
@@ -438,7 +445,7 @@ const TEMPLATE_PAGE_PATHS_QUERY = /* groq */ `
     },
     ${SHARED_SECTIONS_PROJECTION},
     "galleryImages": galleryImages[]{
-      "imageUrl": image.asset->url,
+      "image": image{${IMAGE_PROJECTION}},
       "alt": image.alt
     }
   }
@@ -447,7 +454,7 @@ const TEMPLATE_PAGE_PATHS_QUERY = /* groq */ `
 function withTemplatePageGallery(
   galleryImages?: GalleryImage[] | null,
 ): GallerySection | null {
-  const images = galleryImages?.filter((item) => item.imageUrl) ?? [];
+  const images = galleryImages?.filter((item) => item.image?.asset) ?? [];
 
   if (!images.length) {
     return null;
@@ -474,7 +481,7 @@ function withHeroDefaults(page: FetchedTemplatePage): TemplatePage {
       heading: page.hero?.heading || page.title,
       description:
         page.hero?.description || DEFAULT_TEMPLATE_HERO_DESCRIPTION,
-      imageUrl: page.hero?.imageUrl ?? undefined,
+      image: page.hero?.image ?? undefined,
       fallbackImageUrl: asset('home/hero.webp'),
       alt: page.hero?.alt || DEFAULT_TEMPLATE_HERO_ALT,
     },
@@ -538,7 +545,7 @@ const GALLERY_PAGE_TABS_QUERY = /* groq */ `
     "slug": slug.current,
     "images": galleryImages[]{
       _key,
-      "imageUrl": image.asset->url,
+      "image": image{${IMAGE_PROJECTION}},
       "alt": image.alt
     }
   }

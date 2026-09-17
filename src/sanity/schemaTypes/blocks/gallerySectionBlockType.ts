@@ -26,31 +26,10 @@ export const gallerySectionBlockType = defineType({
         input: ArrayWithMaxItems,
       },
       options: {
+        layout: 'grid',
         disableActions: ['addBefore', 'addAfter'],
       },
-      of: [
-        defineArrayMember({
-          type: 'object',
-          name: 'galleryImage',
-          fields: [
-            defineField({
-              name: 'image',
-              title: 'Kép',
-              type: 'image',
-              options: { hotspot: true },
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: 'alt',
-              title: 'Alternatív szöveg',
-              type: 'string',
-            }),
-          ],
-          preview: {
-            select: { media: 'image', title: 'alt' },
-          },
-        }),
-      ],
+      of: [defineArrayMember({ type: 'templatePageGalleryImage' })],
       validation: (rule) =>
         rule
           .required()

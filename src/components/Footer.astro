@@ -19,6 +19,20 @@ const navLinks = [
   { href: '/kapcsolat', label: 'Kapcsolat' },
 ];
 
+const legalLinks = [
+  {
+    href: asset('global/Hozzajarulo-nyilatkozat.pdf'),
+    label: 'Hozzájáruló nyilatkozat',
+    external: true,
+  },
+  {
+    href: asset('global/Vendegtajekoztato.pdf'),
+    label: 'Vendégtájékoztató',
+    external: true,
+  },
+  { href: '/adatvedelmi-nyilatkozat', label: 'Adatvédelmi nyilatkozat' },
+];
+
 const linkClass =
   'text-[0.75rem] leading-[0.75rem] text-mandalay-950 transition-colors duration-200 hover:text-highlight';
 const bottomLinkClass = `${linkClass} underline underline-offset-2`;
@@ -37,11 +51,11 @@ const bottomLinkClass = `${linkClass} underline underline-offset-2`;
         />
       </a>
 
-      <div class="flex flex-col gap-8">
+      <div class="flex gap-16 max-md:flex-col max-md:gap-8">
         {
           templateLinks.length > 0 && (
             <nav aria-label="Szolgáltatások és árak">
-              <ul class="flex flex-wrap items-center gap-x-8 gap-y-3">
+              <ul class="flex flex-col gap-3">
                 {templateLinks.map((link) => (
                   <li>
                     <a href={link.href} class={linkClass}>
@@ -55,11 +69,30 @@ const bottomLinkClass = `${linkClass} underline underline-offset-2`;
         }
 
         <nav aria-label="Oldalak">
-          <ul class="flex flex-wrap items-center gap-x-8 gap-y-3">
+          <ul class="flex flex-col gap-3">
             {
               navLinks.map((link) => (
                 <li>
                   <a href={link.href} class={linkClass}>
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <nav aria-label="Jogi dokumentumok">
+          <ul class="flex flex-col gap-3">
+            {
+              legalLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class={linkClass}
+                    target={link.external ? '_blank' : undefined}
+                    rel={link.external ? 'noopener noreferrer' : undefined}
+                  >
                     {link.label}
                   </a>
                 </li>
@@ -77,7 +110,6 @@ const bottomLinkClass = `${linkClass} underline underline-offset-2`;
         class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.75rem] leading-[0.75rem] text-mandalay-950"
       >
         <span>Minden jog fenntartva. © Copyright {currentYear} Birtalan Emőke</span>
-        <a href="/adatvedelmi-nyilatkozat" class={bottomLinkClass}>Adatvédelmi nyilatkozat</a>
         <button
           type="button"
           class:list={['cky-banner-element', bottomLinkClass, 'cursor-pointer p-0']}

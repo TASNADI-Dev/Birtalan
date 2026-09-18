@@ -262,7 +262,7 @@ const SHARED_SECTIONS_PROJECTION = /* groq */ `
 const DEFAULT_TEMPLATE_HERO_DESCRIPTION =
   'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...';
 
-const DEFAULT_TEMPLATE_HERO_ALT = 'BI-EM Beauty szalon belső tere';
+const DEFAULT_TEMPLATE_HERO_ALT = 'Egy fiatal nő az arcához emeli a kezét és mosolyog.';
 
 const HOME_PAGE_QUERY = /* groq */ `
   *[_id == "homePage"][0]{

@@ -23,6 +23,6 @@ export const defaultAboutSections: PageSection[] = [
       },
     ],
     fallbackImageUrl: asset('home/hero-faded.webp'),
-    alt: 'BI-EM Beauty szalon belső tere',
+    alt: 'Egy fiatal nő az arcához emeli a kezét és mosolyog.',
   },
 ];

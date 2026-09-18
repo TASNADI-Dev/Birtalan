@@ -12,6 +12,8 @@ Marketing website for **BI-EM Beauty**. Content is managed in Sanity; pages are 
 | CMS       | [Sanity](https://sanity.io) (embedded Studio at `/admin`)                         |
 | Assets    | [Cloudflare R2](https://developers.cloudflare.com/r2/) via `assets.biembeauty.hu` |
 | Hosting   | [Cloudflare Pages](https://pages.cloudflare.com/)                                 |
+| Analytics | [Google Analytics](https://analytics.google.com/)                                 |
+| Consent   | [CookieYes](https://www.cookieyes.com/)                                           |
 
 
 ## Local development

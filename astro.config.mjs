@@ -1,10 +1,12 @@
 // Astro config: Tailwind, Sanity client, and embedded Studio at /admin.
 // @ts-check
 import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
-import sanity from '@sanity/astro';
+import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
+import sanity from '@sanity/astro';
+import tailwindcss from '@tailwindcss/vite';
 import { loadEnv } from 'vite';
+import { flatSitemap } from './src/integrations/flat-sitemap.ts';
 
 const env = {
   ...loadEnv(process.env.NODE_ENV ?? 'development', process.cwd(), ''),
@@ -20,6 +22,8 @@ if (!projectId) {
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://biembeauty.hu',
+
   redirects: {
     '/rolunk': '/rolam',
     '/kez-es-labapolas': '/szolgaltatasok/kez-es-labapolas',
@@ -58,5 +62,16 @@ export default defineConfig({
       studioRouterHistory: 'hash',
     }),
     react(),
+    sitemap({
+      filter: (page) => !page.includes('/admin'),
+      namespaces: {
+        news: false,
+        xhtml: false,
+        image: false,
+        video: false,
+      },
+    }),
+    // Must run after @astrojs/sitemap so chunk/index files exist to flatten.
+    flatSitemap(),
   ],
 });

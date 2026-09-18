@@ -499,7 +499,7 @@ function withHeroDefaults(page: FetchedTemplatePage): TemplatePage {
       description:
         page.hero?.description || DEFAULT_TEMPLATE_HERO_DESCRIPTION,
       image: page.hero?.image ?? undefined,
-      fallbackImageUrl: asset('home/hero.webp'),
+      fallbackImageUrl: asset('home/hero-faded.webp'),
       alt: page.hero?.alt || DEFAULT_TEMPLATE_HERO_ALT,
     },
     priceList:

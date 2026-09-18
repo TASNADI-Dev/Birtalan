@@ -22,7 +22,7 @@ export const defaultAboutSections: PageSection[] = [
         ],
       },
     ],
-    fallbackImageUrl: asset('home/hero.webp'),
+    fallbackImageUrl: asset('home/hero-faded.webp'),
     alt: 'BI-EM Beauty szalon belső tere',
   },
 ];

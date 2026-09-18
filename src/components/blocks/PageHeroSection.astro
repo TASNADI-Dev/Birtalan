@@ -12,7 +12,7 @@ const { section } = Astro.props;
 
 const imageSrc = section.image
   ? buildImageUrl(section.image, { width: 800, height: 800 })
-  : section.fallbackImageUrl ?? asset('home/hero.webp');
+  : section.fallbackImageUrl ?? asset('home/hero-faded.webp');
 const descriptionHtml = renderPortableTextHtml(section.description);
 ---
 

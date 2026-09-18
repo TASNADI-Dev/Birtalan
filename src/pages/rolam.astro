@@ -3,12 +3,23 @@ import Layout from "../layouts/Layout.astro";
 import PageSections from "../components/blocks/PageSections.astro";
 import { defaultAboutSections } from "../lib/sanity/defaultAboutPage";
 import { getAboutPage } from "../lib/sanity/queries";
+import { portableTextToPlain, siteTitle } from "../lib/seo";
 
 const aboutPage = await getAboutPage();
 const sections =
 	aboutPage?.sections?.length ? aboutPage.sections : defaultAboutSections;
+
+const heroSection = sections.find(
+	(
+		section,
+	): section is Extract<(typeof sections)[number], { _type: "pageHeroSection" }> =>
+		section._type === "pageHeroSection",
+);
+const description =
+	portableTextToPlain(heroSection?.description) ||
+	"Ismerje meg a BI-EM Beauty szalon történetét és szakértelmét – személyre szabott szépségápolás nyugodt, igényes környezetben.";
 ---
 
-<Layout title="Rólam">
+<Layout title={siteTitle("Rólam")} description={description}>
 	<PageSections sections={sections} />
 </Layout>

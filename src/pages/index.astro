@@ -4,13 +4,22 @@ import PageSections from "../components/blocks/PageSections.astro";
 import ProgramSupportSection from "../components/ProgramSupportSection.astro";
 import { defaultHomeSections } from "../lib/sanity/defaultHomePage";
 import { getHomePage } from "../lib/sanity/queries";
+import { siteTitle } from "../lib/seo";
 
 const homePage = await getHomePage();
 const sections =
 	homePage?.sections?.length ? homePage.sections : defaultHomeSections;
+
+const heroSection = sections.find(
+	(section): section is Extract<(typeof sections)[number], { _type: "heroSection" }> =>
+		section._type === "heroSection",
+);
+const description =
+	heroSection?.description ||
+	"A BI-EM Beauty modern, nyugodt és igényes környezetben kínál arckezeléseket, szépészeti szolgáltatásokat és professzionális megoldásokat.";
 ---
 
-<Layout title="Birtalan">
+<Layout title={siteTitle()} description={description}>
 	<PageSections sections={sections} />
 	<ProgramSupportSection />
 </Layout>

@@ -2,12 +2,16 @@
 import Layout from '../layouts/Layout.astro';
 import { getPrivacyPage } from '../lib/sanity/queries';
 import { renderPortableTextHtml } from '../lib/sanity/renderPortableText';
+import { siteTitle } from '../lib/seo';
 
 const privacyPage = await getPrivacyPage();
 const contentHtml = renderPortableTextHtml(privacyPage?.content ?? undefined);
 ---
 
-<Layout title="Adatvédelmi nyilatkozat">
+<Layout
+  title={siteTitle('Adatvédelmi nyilatkozat')}
+  description="A BI-EM Beauty adatvédelmi nyilatkozata – információk a személyes adatok kezeléséről és védelméről."
+>
   <section class="mx-auto w-full max-w-[1440px] px-6 py-20 max-md:py-12">
     <div class="max-w-[50rem] text-left">
       <h1

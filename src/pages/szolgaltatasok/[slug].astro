@@ -5,6 +5,7 @@ import PageSections from "../../components/blocks/PageSections.astro";
 import PriceListSection from "../../components/blocks/PriceListSection.astro";
 import TemplateHeroSection from "../../components/blocks/TemplateHeroSection.astro";
 import { getTemplatePagePaths } from "../../lib/sanity/queries";
+import { siteTitle } from "../../lib/seo";
 
 export async function getStaticPaths() {
   const pages = await getTemplatePagePaths();
@@ -12,7 +13,6 @@ export async function getStaticPaths() {
   return pages.map((page) => ({
     params: { slug: page.slug },
     props: {
-      title: page.title,
       hero: page.hero,
       priceList: page.priceList,
       sections: page.sections,
@@ -21,10 +21,11 @@ export async function getStaticPaths() {
   }));
 }
 
-const { title, hero, priceList, sections, gallery } = Astro.props;
+const { hero, priceList, sections, gallery } = Astro.props;
+const pageName = hero.heading;
 ---
 
-<Layout title={title}>
+<Layout title={siteTitle(pageName)} description={hero.description}>
   <TemplateHeroSection hero={hero} hasPriceList={Boolean(priceList)} />
   {gallery && <GallerySection section={gallery} />}
   {priceList && <PriceListSection priceList={priceList} />}

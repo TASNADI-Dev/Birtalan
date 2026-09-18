@@ -2,10 +2,14 @@
 import GalleryPageSection from "../components/blocks/GalleryPageSection.astro";
 import Layout from "../layouts/Layout.astro";
 import { getGalleryPageTabs } from "../lib/sanity/queries";
+import { siteTitle } from "../lib/seo";
 
 const tabs = await getGalleryPageTabs();
 ---
 
-<Layout title="Galéria">
+<Layout
+	title={siteTitle("Galéria")}
+	description="Tekintse meg a BI-EM Beauty szalon munkáit – arckezelések, sminktetoválás, szemöldök- és szempillastyling, kéz- és lábápolás."
+>
 	<GalleryPageSection tabs={tabs} />
 </Layout>

@@ -4,14 +4,19 @@ import ContactHeroSection from "../components/blocks/ContactHeroSection.astro";
 import ContactLocationsSection from "../components/blocks/ContactLocationsSection.astro";
 import Layout from "../layouts/Layout.astro";
 import { getContactPage, getGlobalContacts } from "../lib/sanity/queries";
+import { portableTextToPlain, siteTitle } from "../lib/seo";
 
 const [contactPage, contacts] = await Promise.all([
 	getContactPage(),
 	getGlobalContacts(),
 ]);
+
+const description =
+	portableTextToPlain(contactPage?.intro) ||
+	"Foglaljon időpontot a BI-EM Beauty szalonba. Elérhetőségek, helyszínek és online időpontfoglalás.";
 ---
 
-<Layout title="Kapcsolat">
+<Layout title={siteTitle("Kapcsolat")} description={description}>
 	<ContactHeroSection intro={contactPage?.intro} />
 	<ContactDetailsSection contacts={contacts} />
 	<ContactLocationsSection locations={contactPage?.locations} />

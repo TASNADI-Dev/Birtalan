@@ -6,9 +6,13 @@ import { asset } from "../lib/assets";
 
 interface Props {
 	title?: string;
+	description?: string;
 }
 
-const { title = "Astro" } = Astro.props;
+const {
+	title = "BI-EM Beauty",
+	description = "A BI-EM Beauty modern, nyugodt és igényes környezetben kínál arckezeléseket, szépészeti szolgáltatásokat és professzionális megoldásokat.",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -32,6 +36,7 @@ const { title = "Astro" } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<meta name="description" content={description} />
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-83QKD8FKET"></script>
 		<script is:inline>

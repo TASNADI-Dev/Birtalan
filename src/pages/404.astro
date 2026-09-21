@@ -1,0 +1,42 @@
+---
+import Button from "../components/Button.astro";
+import Layout from "../layouts/Layout.astro";
+import { siteTitle } from "../lib/seo";
+---
+
+<Layout
+	title={siteTitle("Az oldal nem található")}
+	description="A keresett oldal nem található. Térjen vissza a BI-EM Beauty főoldalára."
+>
+	<section class="mx-auto w-full max-w-[1440px] px-6 py-20 max-md:py-12">
+		<div class="flex max-w-[36rem] flex-col gap-6 md:gap-8">
+			<div class="flex flex-col gap-3">
+				<p
+					class="font-sans text-[0.875rem] leading-none tracking-[-0.02em] text-mako-500"
+				>
+					404
+				</p>
+				<h1
+					class="font-sans text-[3.5rem] font-light leading-[1.1] tracking-[-0.03em] text-mandalay-950 max-md:text-[2.5rem]"
+				>
+					Az oldal nem található
+				</h1>
+				<p
+					class="max-w-[32rem] text-[0.875rem] leading-[1.5] tracking-[-0.01em] text-mako-700"
+				>
+					A keresett oldal nem létezik, vagy áthelyeztük. Nézd meg a
+					főoldalt, vagy foglalj időpontot a kapcsolat menüpontban.
+				</p>
+			</div>
+
+			<div class="flex flex-wrap items-center gap-4">
+				<Button variant="large" href="/">
+					Vissza a főoldalra
+				</Button>
+				<Button variant="text-only" href="/kapcsolat">
+					Kapcsolat
+				</Button>
+			</div>
+		</div>
+	</section>
+</Layout>

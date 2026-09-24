@@ -1,10 +1,13 @@
 # Build the Astro site on GitHub and upload only dist/ to cPanel via FTP.
+# Also runs on Sanity publish via repository_dispatch (event_type: sanity-publish).
 name: Deploy to cPanel
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+  repository_dispatch:
+    types: [sanity-publish]
 
 concurrency:
   group: deploy-cpanel
